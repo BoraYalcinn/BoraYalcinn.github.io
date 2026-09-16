@@ -148,11 +148,25 @@ showForks = ["godot"]           # forks are hidden unless named here
   title       = "CezveRender"
   description = "Overrides whatever GitHub reports."
   cover       = "/images/projects/cezverender.png"
+  tags        = ["java", "opengl", "lwjgl"]
 ```
 
 `overrides` is a list rather than a keyed table so that every key is declared in
 `.pages.yml` — the CMS then rewrites the file without dropping anything it was
 not told about.
+
+`tags` are the technologies the repo is built on — its language, the libraries
+and frameworks it pulls in, and the domain it sits in. Write them lowercase and
+hyphenated, the same way tags are written in post front matter: a repo tag and a
+post tag with the same spelling meet on the same `/tags/` page, and a repo tag
+links there as soon as some post or write-up carries it too. Two details worth
+knowing:
+
+- A tag that only repeats the language GitHub reports for the repo is dropped, so
+  `tags = ["c++", "sdl2"]` on a C++ repo renders as one badge, not two.
+- A repo that has a write-up page takes that page's own tags when `tags` is left
+  out here. CezveRender works this way — its tags live in
+  `content/projects/cezverender.md`, one list rather than two.
 
 To feature one more project, add its repo name to `featured`. That is the whole
 step — the card moves to the top and out of the long list below.

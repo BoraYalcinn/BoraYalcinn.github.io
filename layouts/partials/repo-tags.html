@@ -1,0 +1,36 @@
+{{- /*
+  The technology badges for one repo on /projects/.
+
+      {{ partial "repo-tags.html" (dict "tags" .tags "language" .language) }}
+      {{ partial "repo-tags.html" (dict "tags" .tags "language" .language "wrap" "repo-tags") }}
+
+  A tag that only repeats the repo's GitHub language is skipped: the language
+  already sits next to the title in a badge of its own, and a row reading
+  "C++  c++  sdl2" helps nobody.
+
+  `wrap` names a container class; it is left off when the caller already has a
+  row to drop the badges into. Either way nothing at all is emitted when no tag
+  survives, so a repo tagged only with its own language grows no empty box.
+
+  A tag links to its /tags/ page when one exists — that is, when something under
+  content/ carries the same tag — and is plain text otherwise, since Hugo only
+  builds a term page for tags used in content.
+*/ -}}
+{{- $lang := lower (.language | default "") -}}
+{{- $visible := slice -}}
+{{- range .tags }}
+  {{- if ne (lower .) $lang }}{{ $visible = $visible | append . }}{{ end -}}
+{{- end -}}
+{{- with $visible -}}
+{{- if $.wrap }}<div class="{{ $.wrap }}">{{ end }}
+  {{- range . }}
+  {{- $tag := . -}}
+  {{- $class := printf "retro-badge retro-badge-sm %s" (partial "func/hue-class.html" (dict "term" $tag "prefix" "retro-badge")) -}}
+  {{- with site.GetPage (printf "/tags/%s" (urlize $tag)) }}
+  <a class="{{ $class }}" href="{{ .RelPermalink }}">{{ $tag }}</a>
+  {{- else }}
+  <span class="{{ $class }}">{{ $tag }}</span>
+  {{- end }}
+  {{- end }}
+{{- if $.wrap }}</div>{{ end }}
+{{- end -}}

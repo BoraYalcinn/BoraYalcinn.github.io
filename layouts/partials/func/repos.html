@@ -3,7 +3,7 @@
 
       { "featured": [...], "rest": [...], "live": bool }
 
-  Each entry: name, title, description, url, language, stars, fork, page.
+  Each entry: name, title, description, url, language, tags, stars, fork, page.
 
   The list is fetched from the GitHub API at build time, then merged with
   data/projects.toml (hidden, showForks, overrides, featured order).
@@ -58,12 +58,16 @@
          front matter; the card then points at that page instead of GitHub. */ -}}
   {{- $page := "" -}}
   {{- $cover := $o.cover | default "" -}}
+  {{- $tags := $o.tags | default slice -}}
   {{- with where site.RegularPages "Params.repo" $name -}}
     {{- $p := index . 0 -}}
     {{- $page = $p.RelPermalink -}}
     {{- /* The page's own cover wins over one named in the data file, so a
            project with a write-up is illustrated the same way a post is. */ -}}
     {{- with partial "func/cover.html" $p }}{{ $cover = . }}{{ end -}}
+    {{- /* Tags work the other way round: the data file is the override, so a
+           repo without one keeps a single list of tags, on its write-up. */ -}}
+    {{- if not $tags }}{{ $tags = $p.Params.tags | default slice }}{{ end -}}
   {{- end -}}
   {{- $items = $items | append (dict
       "name" $name
@@ -73,6 +77,7 @@
       "page" $page
       "cover" $cover
       "language" (.language | default "")
+      "tags" $tags
       "stars" (.stargazers_count | default 0)
       "archived" (.archived | default false)
     ) -}}

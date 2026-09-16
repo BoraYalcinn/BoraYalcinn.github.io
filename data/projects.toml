@@ -25,37 +25,97 @@ showForks = [
 
 # Per-repo overrides for what GitHub reports. Anything omitted falls back to
 # the API. `repo` is required and matches the GitHub repo name.
+#
+# `tags` are the technologies a repo is actually built on — language, the
+# libraries and frameworks it pulls in, and the domain it sits in. They are
+# lowercase and hyphenated, the same shape as the tags in content front matter,
+# so a repo tag and a post tag meet on the same /tags/ page. A tag that only
+# repeats the language GitHub reports is dropped when the page renders, since
+# the language already has its own badge. A repo with a write-up page here
+# inherits that page's tags when no tags are listed below.
 
 [[overrides]]
   repo = "CezveRender"
   title = "CezveRender"
   description = "A real-time 3D renderer written from scratch in Java, on OpenGL 3.3 and LWJGL. Shadow mapping, Phong lighting and a live ImGui scene editor."
+  # Tags come from content/projects/cezverender.md.
 
 [[overrides]]
   repo = "godot"
   title = "Godot Engine (contributions)"
   description = "Rendering fixes to the Compatibility/GLES3 renderer, upstream."
+  tags = ["c++", "godot", "opengl", "glsl", "game-engine"]
+
+[[overrides]]
+  repo = "foveated-path-tracing"
+  tags = ["c++", "hlsl", "directx12", "capsaicin", "path-tracing", "foveated-rendering"]
+
+[[overrides]]
+  repo = "BarelyAnEngine"
+  tags = ["c++", "sdl2", "cmake", "software-rendering", "graphics"]
+
+[[overrides]]
+  repo = "turkcell-puan-cuzdani"
+  tags = ["java", "spring-boot", "oracle", "redis", "docker", "microservices"]
 
 [[overrides]]
   repo = "RayTracing-PeterShirley"
   description = "Placeholder — will replace. Ray tracer following Peter Shirley's series."
+  tags = ["c++", "cmake", "ray-tracing", "graphics"]
 
 [[overrides]]
   repo = "FoveatedRendering-EyeTracking"
   description = "Placeholder — will replace. Foveated rendering driven by eye tracking."
+  tags = ["c#", "unity", "hlsl", "foveated-rendering", "eye-tracking"]
 
 [[overrides]]
   repo = "CSE_232-TermProject"
   description = "Placeholder — will replace."
+  tags = ["c", "ncurses", "data-structures", "memory-management"]
 
 [[overrides]]
   repo = "Learning-OpenGL"
   description = "Placeholder — will replace. OpenGL exercises and notes."
+  tags = ["c++", "opengl", "glsl", "graphics"]
 
 [[overrides]]
   repo = "AUV"
   description = "Placeholder — will replace. Autonomous underwater vehicle work."
+  tags = ["python", "opencv", "numpy", "computer-vision"]
 
 [[overrides]]
   repo = "unity-math-playground"
   description = "Placeholder — will replace. Unity experiments for maths and graphics."
+  tags = ["c#", "unity", "math"]
+
+[[overrides]]
+  repo = "Procedural-Shader-Terrain"
+  tags = ["c", "raylib", "glsl", "procedural-generation"]
+
+[[overrides]]
+  repo = "Shaders-Raylib"
+  tags = ["c", "raylib", "glsl", "shaders"]
+
+[[overrides]]
+  repo = "Snake-Game-Raylib"
+  tags = ["c++", "raylib", "game"]
+
+[[overrides]]
+  repo = "Tetris-Game-Unity"
+  tags = ["c#", "unity", "game"]
+
+[[overrides]]
+  repo = "J-BattleCity"
+  tags = ["java", "swing", "game"]
+
+[[overrides]]
+  repo = "CSE_211_PROJECT_18"
+  tags = ["c++", "data-structures", "graphs", "doxygen"]
+
+[[overrides]]
+  repo = "Inventory-Management-System"
+  tags = ["java", "swing"]
+
+[[overrides]]
+  repo = "Basic-Password-Generator"
+  tags = ["java"]

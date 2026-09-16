@@ -96,6 +96,16 @@
   color: var(--retro-text-secondary);
 }
 
+/* The technology tags sit on their own row under the description, so a repo
+   with six of them does not push its own name onto a second line. */
+.repo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--retro-spacing-xs);
+  align-items: center;
+  margin-top: var(--retro-spacing-xs);
+}
+
 /* Repo rows with a thumbnail become two columns; rows without one keep the
    plain full-width layout, so a half-illustrated list still reads evenly. */
 .repo-item-thumbed {

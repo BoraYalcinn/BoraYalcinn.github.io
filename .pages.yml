@@ -266,3 +266,8 @@ content:
             label: Thumbnail
             type: image
             description: "Shown next to the repo in the list, and as the card image if the repo is featured."
+          - name: tags
+            label: Technologies
+            type: string
+            list: true
+            description: "Language, libraries and frameworks the repo is built on — lowercase and hyphenated, e.g. c++, sdl2, opengl. A tag that just repeats GitHub's own language badge is not shown twice. A repo that has a write-up page takes that page's tags when this is left empty."

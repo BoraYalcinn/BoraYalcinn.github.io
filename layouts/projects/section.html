@@ -23,6 +23,7 @@
         <div class="project-meta">
           {{- with .language }}<span class="retro-badge retro-badge-sm">{{ . }}</span>{{ end }}
           {{- if .archived }}<span class="retro-badge retro-badge-sm">archived</span>{{ end }}
+          {{- partial "repo-tags.html" (dict "tags" .tags "language" .language) }}
         </div>
         <div class="retro-flex retro-flex-wrap retro-gap-1 retro-mt-3">
           {{- with .page }}
@@ -67,6 +68,10 @@
         {{- if .archived }}<span class="retro-badge retro-badge-sm">archived</span>{{ end }}
       </div>
       {{- with .description }}<p class="repo-desc">{{ . }}</p>{{ end }}
+      {{- /* Tags go under the description rather than up in .repo-head: the
+             name line stays one short line, which is what keeps twenty rows
+             scannable. */ -}}
+      {{- partial "repo-tags.html" (dict "tags" .tags "language" .language "wrap" "repo-tags") }}
       </div>
     </li>
     {{- end }}
