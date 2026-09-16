@@ -1,22 +1,25 @@
 {{- /*
-  Renders one Shadertoy shader.
+  Renders one Shadertoy shader, in whichever of three modes the page supplies.
 
-  Default is a poster, not an iframe. Shadertoy sits behind Cloudflare, and a
+  Why not the live iframe by default: Shadertoy sits behind Cloudflare, and a
   cross-origin iframe reaches it without Shadertoy's cookies — Chrome blocks
-  third-party cookies by default — so Cloudflare serves a bot challenge instead
-  of the shader, and that challenge page's X-Frame-Options refuses framing. The
-  visitor gets "refused to connect" in a grey box. Opening the same embed URL in
-  a tab works fine, which is what makes the poster a real substitute: it is a
-  picture of the shader that opens the working page in one click.
+  third-party cookies by default — so Cloudflare answers with a bot challenge,
+  and that challenge page refuses to be framed. The visitor gets "refused to
+  connect". Opening the same embed URL in a tab works, which is why linking out
+  is a fair substitute.
 
-  Set `shaderEmbed: true` in a page's front matter to try the iframe anyway.
+  Modes, best first:
+    video   a recorded loop (webm). Shows the shader actually running, with no
+            dependency on Shadertoy being reachable or frameable.
+    cover   a still image.
+    blank   a dark panel with the shader id.
+  `shaderEmbed: true` opts a page back into the live iframe.
 
-  Expects a dict: id (required), title, cover, embed, gui, paused.
+  Expects a dict: id (required), title, video, cover, embed, gui, paused.
 */ -}}
 {{- $id := .id -}}
 {{- $title := .title | default (printf "Shadertoy shader %s" $id) -}}
 {{- $url := printf "https://www.shadertoy.com/view/%s" $id -}}
-{{- $cover := .cover -}}
 <figure class="shadertoy">
   {{- if .embed }}
   {{- $gui := cond (eq (printf "%v" .gui) "false") "false" "true" -}}
@@ -28,9 +31,19 @@
             allowfullscreen
             allow="fullscreen"></iframe>
   </div>
+  {{- else if .video }}
+  {{- /* muted + playsinline are what make autoplay allowed at all; the poster
+         is what a reduced-motion visitor is left looking at once the script
+         below pauses it. */ -}}
+  <div class="shadertoy-frame shadertoy-video">
+    <video src="{{ .video }}"
+           {{ with .cover }}poster="{{ . }}"{{ end }}
+           autoplay loop muted playsinline preload="metadata"
+           aria-label="{{ $title }}, recorded"></video>
+  </div>
   {{- else }}
   <a class="shadertoy-frame shadertoy-poster" href="{{ $url }}" rel="noopener" target="_blank">
-    {{- with $cover }}
+    {{- with .cover }}
     <img src="{{ . }}" alt="" loading="lazy" decoding="async">
     {{- else }}
     <span class="shadertoy-poster-blank" aria-hidden="true">{{ $id }}</span>
@@ -39,6 +52,26 @@
     <span class="retro-sr-only">Run {{ $title }} on Shadertoy</span>
   </a>
   {{- end }}
+  {{- /* A looping autoplay video is exactly what prefers-reduced-motion is
+         about; CSS cannot stop playback, so this pauses it and hands the
+         visitor controls instead. Guarded so it is a no-op past the first. */ -}}
+  <script>
+    (function () {
+      if (window.__retroShadertoyRM) return;
+      window.__retroShadertoyRM = true;
+      try {
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      } catch (e) { return; }
+      var pause = function () {
+        document.querySelectorAll('.shadertoy-video video').forEach(function (v) {
+          v.autoplay = false; v.controls = true; v.pause();
+        });
+      };
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', pause);
+      } else { pause(); }
+    })();
+  </script>
   <figcaption>
     <a href="{{ $url }}" rel="noopener" target="_blank">{{ $title }} — open on Shadertoy</a>
   </figcaption>

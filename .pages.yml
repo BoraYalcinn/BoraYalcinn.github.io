@@ -6,10 +6,12 @@
 
 media:
   # Uploads land in static/images/ and are referenced as /images/... , which is
-  # exactly how Hugo serves the static folder.
+  # exactly how Hugo serves the static folder. Video lives here too — one
+  # upload source keeps the CMS simple, at the cost of a folder named "images"
+  # holding the odd .webm.
   input: static/images
   output: /images
-  categories: [image]
+  extensions: [png, jpg, jpeg, gif, webp, svg, webm, mp4]
   rename: safe
 
 content:
@@ -100,6 +102,10 @@ content:
         type: string
         required: true
         description: "Last part of the shader's URL — shadertoy.com/view/XXXXXX. The embed is added above the text automatically."
+      - name: shaderVideo
+        label: Recorded loop (webm)
+        type: file
+        description: "A short screen recording of the shader. Plays muted on loop in place of the live embed — the most reliable option, since it does not depend on Shadertoy being reachable."
       - name: shaderEmbed
         label: Try the live embed
         type: boolean

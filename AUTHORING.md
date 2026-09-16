@@ -93,12 +93,36 @@ framed. The visitor gets "refused to connect" in a grey box. Opening the same
 embed URL in a tab works, which is what makes the poster a fair substitute: a
 still of the shader that opens the working page in one click.
 
-So the page shows a 16:9 poster with a play button. Give the shader a `cover`
-and that image fills it; without one it falls back to a dark panel showing the
-shader id. Either way the caption links to Shadertoy.
+So the 16:9 box is filled in whichever of these the page provides, best first:
 
-To try the live embed on a page anyway, set `shaderEmbed: true` ("Try the live
-embed" in the CMS).
+1. **`shaderVideo`** — a recorded webm loop. The shader visibly runs, and
+   nothing depends on Shadertoy being reachable. This is the one to use.
+2. **`cover`** — a still, with a play button, linking to Shadertoy.
+3. Nothing — a dark panel showing the shader id, same play button and link.
+
+Either way the caption links to Shadertoy. To try the live embed on a page
+anyway, set `shaderEmbed: true` ("Try the live embed" in the CMS).
+
+### Recording the loop
+
+Screen-record the shader running on Shadertoy, then convert. VP9 in a webm is
+roughly a tenth the size of the equivalent GIF:
+
+```bash
+ffmpeg -i recording.mp4 -t 8 -vf "scale=960:-2,fps=30" \
+  -c:v libvpx-vp9 -b:v 0 -crf 34 -an \
+  static/images/shaders/my-shader.webm
+```
+
+`-t 8` trims to eight seconds, `-an` drops audio (required: a video with sound
+cannot autoplay), and `-crf` trades size against quality — raise it for a
+smaller file. Aim to keep it under about 2 MB.
+
+Pick a loop point where the shader looks continuous, or the seam will be
+obvious on repeat.
+
+The video autoplays muted, which is the only way browsers allow autoplay at
+all. Visitors who ask for reduced motion get it paused with controls instead.
 
 Shaders live in their own section and deliberately do **not** appear in the home
 page feed.

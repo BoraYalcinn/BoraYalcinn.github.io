@@ -169,3 +169,13 @@
   background: var(--retro-primary);
   color: var(--retro-primary-fg, #fff);
 }
+
+/* Recorded shader loop. Same 16:9 box as the poster and the iframe. */
+.shadertoy-video video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
