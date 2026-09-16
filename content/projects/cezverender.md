@@ -1,14 +1,17 @@
 ---
-title: "CezveRender"
+title: CezveRender
 date: 2026-05-07
-# Links this page to the GitHub repo of the same name: the project card on
-# /projects/ starts pointing here, and language/stars/link are pulled live.
-repo: "CezveRender"
-description: "A real-time 3D renderer written from scratch in Java, on OpenGL 3.3 and LWJGL — my first large project."
-tags: ["java", "opengl", "lwjgl", "graphics", "renderer"]
-# cover: "/images/projects/cezverender.png"
+draft: true
+repo: CezveRender
+description: A real-time 3D renderer written from scratch in Java, on OpenGL 3.3
+  and LWJGL — my first large project.
+tags:
+  - java
+  - opengl
+  - lwjgl
+  - graphics
+  - renderer
 ---
-
 CezveRender is a real-time 3D renderer I wrote from scratch in Java, on top of
 OpenGL 3.3 through LWJGL. It was my first large-scale personal project, and the
 point of it was to learn graphics programming from the ground up rather than to
@@ -72,13 +75,9 @@ camera, `F` toggles fullscreen.
 
 ## Known rough edges
 
-It is a learning project and it shows in places. Spot light shadow maps
-currently render incorrectly — a bug I have not tracked down yet. There is no
-scene save or load. Shadow coverage is bounded by the size of the directional
+ There is no scene save or load. Shadow coverage is bounded by the size of the directional  
 light's orthographic frustum.
 
-The ImGui editor UI was not written entirely by hand; I was not familiar enough
-with imgui-java at the time and leaned on tooling to get the editor working
-quickly. The rendering, shadow mapping and lighting code is my own.
+
 
 Issues and pull requests are welcome — the repo is meant to be picked apart.
