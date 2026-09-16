@@ -52,7 +52,13 @@
   <h2 id="all-repositories">{{ i18n "allRepositories" | default "All repositories" }}</h2>
   <ul class="repo-list" role="list">
     {{- range . }}
-    <li class="repo-item">
+    <li class="repo-item{{ if .cover }} repo-item-thumbed{{ end }}">
+      {{- /* Decorative: the row already links to the repo by name, so the
+             thumbnail is not a second link to the same place. */ -}}
+      {{- with .cover }}
+      <div class="repo-thumb"><img src="{{ . }}" alt="" loading="lazy" decoding="async"></div>
+      {{- end }}
+      <div class="repo-body">
       <div class="repo-head">
         <a class="repo-name" href="{{ with .page }}{{ . }}{{ else }}{{ .url }}{{ end }}"
            {{- if not .page }} rel="noopener" target="_blank"{{ end }}>{{ .title }}</a>
@@ -61,6 +67,7 @@
         {{- if .archived }}<span class="retro-badge retro-badge-sm">archived</span>{{ end }}
       </div>
       {{- with .description }}<p class="repo-desc">{{ . }}</p>{{ end }}
+      </div>
     </li>
     {{- end }}
   </ul>

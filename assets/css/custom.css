@@ -62,6 +62,11 @@
   gap: var(--retro-spacing-md);
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
+/* A lone featured card spans the full grid, and the theme's .post-cover has no
+   height cap (its own cards sit in a 260px track and never get the chance to
+   need one). Cap it here, the way the theme caps .article-hero. */
+.project-featured .post-cover { max-height: 15rem; }
+
 .project-meta {
   display: flex;
   flex-wrap: wrap;
@@ -89,4 +94,25 @@
   margin: 2px 0 0;
   font-size: var(--retro-font-size-sm);
   color: var(--retro-text-secondary);
+}
+
+/* Repo rows with a thumbnail become two columns; rows without one keep the
+   plain full-width layout, so a half-illustrated list still reads evenly. */
+.repo-item-thumbed {
+  display: flex;
+  gap: var(--retro-spacing-sm);
+  align-items: flex-start;
+}
+.repo-thumb {
+  flex: 0 0 auto;
+  width: 96px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--retro-border-medium);
+  background: var(--retro-bg-light);
+}
+.repo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.repo-body { min-width: 0; }
+@media (max-width: 480px) {
+  .repo-thumb { width: 64px; }
 }

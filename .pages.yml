@@ -252,5 +252,6 @@ content:
             label: Description
             type: text
           - name: cover
-            label: Cover image
+            label: Thumbnail
             type: image
+            description: "Shown next to the repo in the list, and as the card image if the repo is featured."
