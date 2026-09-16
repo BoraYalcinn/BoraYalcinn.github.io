@@ -1,7 +1,7 @@
 ---
 title: CezveRender
 date: 2026-05-07
-draft: true
+draft: false
 repo: CezveRender
 description: A real-time 3D renderer written from scratch in Java, on OpenGL 3.3
   and LWJGL — my first large project.
