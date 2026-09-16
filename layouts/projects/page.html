@@ -1,0 +1,51 @@
+{{ define "main" }}
+  {{- partial "breadcrumbs.html" . }}
+
+  {{- /* When the page names a repo, pull that repo's live facts out of the same
+         list the section page uses, so stars/language/links never drift from
+         GitHub or have to be retyped in front matter. */ -}}
+  {{- $repo := "" -}}
+  {{- with .Params.repo -}}
+    {{- $all := partial "func/repos.html" $ -}}
+    {{- $match := where $all.all "name" . -}}
+    {{- with $match }}{{ $repo = index . 0 }}{{ end -}}
+  {{- end }}
+
+  {{- $cover := partial "func/cover.html" . }}
+  <article class="retro-card retro-mb-5">
+    <div class="retro-card-header">{{ .Title }}</div>
+    {{- with $cover }}
+    <img class="post-cover" src="{{ . }}" alt="" loading="eager" decoding="async">
+    {{- end }}
+    <div class="retro-card-content">
+      <h1 class="retro-mt-0">{{ .Title }}</h1>
+      {{- with .Description }}<p class="retro-text-lg retro-text-secondary">{{ . | markdownify }}</p>{{ end }}
+
+      {{- with $repo }}
+      <div class="project-meta retro-mb-4">
+        {{- with .language }}<span class="retro-badge retro-badge-sm">{{ . }}</span>{{ end }}
+        {{- if gt .stars 0 }}<span class="retro-badge retro-badge-sm">&#9733; {{ .stars }}</span>{{ end }}
+        {{- if .archived }}<span class="retro-badge retro-badge-sm">archived</span>{{ end }}
+        <a class="retro-btn retro-btn-sm" href="{{ .url }}" rel="noopener" target="_blank">
+          View on GitHub<span class="retro-sr-only">: {{ .title }}</span>
+        </a>
+      </div>
+      {{- end }}
+
+      <div class="retro-prose">{{ .Content }}</div>
+
+      {{- with .GetTerms "tags" }}
+      <div class="retro-flex retro-flex-wrap retro-gap-1 retro-mt-5">
+        {{- range . }}
+        <a class="retro-badge {{ partial "func/hue-class.html" (dict "term" .LinkTitle "prefix" "retro-badge") }}"
+           href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+        {{- end }}
+      </div>
+      {{- end }}
+    </div>
+  </article>
+
+  <a class="retro-btn retro-mb-5" href="{{ (site.GetPage "/projects").RelPermalink }}">&laquo; All projects</a>
+
+  {{- partial "comments.html" . }}
+{{ end }}

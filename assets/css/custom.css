@@ -1,0 +1,92 @@
+/* Picked up automatically by the theme's head partial, after theme.css. */
+
+/* --- social links ------------------------------------------------------- */
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--retro-spacing-xs);
+  margin: 0;
+  padding: var(--retro-spacing-xs);
+  list-style: none;
+}
+.social-links li { margin: 0; }
+
+/* Sized off the icon box, so every mark occupies the same square regardless of
+   how much of its 24x24 viewBox the brand path actually fills. */
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--retro-text);
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+.social-link:hover,
+.social-link:focus-visible {
+  color: var(--retro-primary);
+  border-color: var(--retro-border-medium);
+  background: var(--retro-bg-light);
+}
+.social-icon { display: block; }
+
+/* --- shadertoy embeds --------------------------------------------------- */
+.shadertoy { margin: 0 0 var(--retro-spacing-lg); }
+/* The 16:9 box is what keeps the embed from forcing the page wide on a phone;
+   Shadertoy's iframe has no intrinsic size of its own. */
+.shadertoy-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: 2px solid var(--retro-border-dark);
+  background: #000;
+}
+.shadertoy-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.shadertoy figcaption {
+  margin-top: var(--retro-spacing-xs);
+  font-size: var(--retro-font-size-sm);
+  color: var(--retro-text-muted);
+  text-align: center;
+}
+
+/* --- projects ----------------------------------------------------------- */
+.project-featured {
+  display: grid;
+  gap: var(--retro-spacing-md);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--retro-spacing-xs);
+  align-items: center;
+}
+
+/* The long list below is deliberately plainer than the featured cards: one
+   line per repo, so twenty of them stay scannable. */
+.repo-list { margin: 0; padding: 0; list-style: none; }
+.repo-item {
+  padding: var(--retro-spacing-sm) 0;
+  border-bottom: 1px solid var(--retro-border-light);
+}
+.repo-item:last-child { border-bottom: 0; }
+.repo-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--retro-spacing-xs);
+  align-items: baseline;
+}
+.repo-name { font-weight: bold; }
+.repo-stars { font-size: var(--retro-font-size-sm); color: var(--retro-text-muted); }
+.repo-desc {
+  margin: 2px 0 0;
+  font-size: var(--retro-font-size-sm);
+  color: var(--retro-text-secondary);
+}

@@ -1,0 +1,31 @@
+{{- /*
+  Site override of the theme's sidebar: same three shapes as upstream (docs
+  tree / per-post TOC / site-wide widgets), with the social links appended so
+  they appear on every page rather than only on listings.
+*/ -}}
+{{- $docs := and .Section (eq .Section (site.Params.docsSection | default "docs")) -}}
+{{- if $docs -}}
+  {{- partial "sidebar/docs-nav.html" . -}}
+{{- else if and .IsPage (ne .Layout "search") -}}
+  <div class="retro-sidebar-header">{{ i18n "onThisPage" | default "On this page" }}</div>
+  {{- partial "sidebar/toc.html" . -}}
+  {{- partial "sidebar/terms.html" . -}}
+  {{- /* Named after the section it returns to, so a project page does not offer
+         "All posts". */ -}}
+  {{- $parent := site.GetPage (printf "/%s" .Section) -}}
+  <a class="retro-btn retro-w-full" href="{{ with $parent }}{{ .RelPermalink }}{{ else }}{{ site.Home.RelPermalink }}{{ end }}">
+    &laquo; {{ with $parent }}{{ .LinkTitle }}{{ else }}{{ i18n "allPosts" | default "All posts" }}{{ end }}
+  </a>
+{{- else -}}
+  <div class="retro-sidebar-header">{{ site.Title }}</div>
+  {{- partial "sidebar/sections.html" . -}}
+  {{- partial "sidebar/archive.html" . -}}
+  {{- partial "sidebar/tag-cloud.html" . -}}
+{{- end -}}
+
+{{- with partial "social-links.html" . }}
+<div class="retro-sidebar-section sidebar-widget">
+  <div class="retro-sidebar-group">Elsewhere</div>
+  {{ . }}
+</div>
+{{- end -}}

@@ -1,0 +1,91 @@
+baseURL = "https://borayalcinn.github.io/"
+locale = "en-us"
+title = "Bora Yalçın"
+theme = "retrocss"
+copyright = "© 2026 Bora Yalçın"
+enableRobotsTXT = true
+enableEmoji = true
+
+# Hugo does not merge a theme's markup/outputs config into the site's, so the
+# two settings RetroCSS 9x needs have to live here rather than in the theme.
+capitalizeListTitles = false
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[pagination]
+  pagerSize = 6
+
+[params]
+  tagline = "computer graphics, engine architecture, game development"
+  description = "Bora Yalçın — CSE undergraduate working in computer graphics, engine architecture and game development. Building BarelyAnEngine and contributing rendering fixes to Godot Engine."
+  # Matches the light look of the theme's own demo site.
+  accentHue = "primary"
+  borderRadius = "0"
+  sidebar = "left"
+  dateFormat = "2 January 2006"
+  showReadingTime = true
+  showToc = true
+  search = true
+  # The home page and every "all posts" listing read from this.
+  mainSections = ["blog"]
+
+  [params.author]
+    name = "Bora Yalçın"
+    initials = "BY"
+    bio = "Undergraduate CSE student at Yeditepe University (Istanbul), currently on an Erasmus+ exchange at UTBM, France. Works in computer graphics, engine architecture, and game development. Building BarelyAnEngine (a minimal-dependency C++ software renderer) and contributing rendering fixes to Godot Engine's Compatibility/GLES3 renderer. Also shoots photography and writes shaders on Shadertoy."
+
+# Read by layouts/partials/social-links.html. `icon` selects an inline SVG from
+# that partial's icon table — adding a network means adding a path there too.
+[[params.social]]
+  name = "GitHub"
+  url = "https://github.com/BoraYalcinn"
+  icon = "github"
+[[params.social]]
+  name = "LinkedIn"
+  url = "https://www.linkedin.com/in/borayalcinn/"
+  icon = "linkedin"
+[[params.social]]
+  name = "YouTube"
+  url = "https://www.youtube.com/@BoraY5734"
+  icon = "youtube"
+[[params.social]]
+  name = "Behance"
+  url = "https://www.behance.net/USERNAME"
+  icon = "behance"
+[[params.social]]
+  name = "Steam"
+  url = "https://steamcommunity.com/profiles/76561198385728537/"
+  icon = "steam"
+
+# Comments, via giscus — each page gets a GitHub Discussion in the "Comments"
+# category, matched by pathname. The two ids are GitHub's own node ids, read
+# from giscus.app; they are public identifiers, not secrets.
+[params.comments]
+  provider = "giscus"
+  [params.comments.giscus]
+    repo = "BoraYalcinn/BoraYalcinn.github.io"
+    repoId = "R_kgDOTq2BCA"
+    category = "Comments"
+    categoryId = "DIC_kwDOTq2BCM4DFuDa"
+    mapping = "pathname"
+    # Matches the site default; the sync script in comments.html follows the toggle.
+    theme = "light"
+
+[menus]
+  [[menus.main]]
+    name = "Blog"
+    pageRef = "/blog"
+    weight = 10
+  [[menus.main]]
+    name = "Projects"
+    pageRef = "/projects"
+    weight = 20
+  [[menus.main]]
+    name = "Shaders"
+    pageRef = "/shaders"
+    weight = 25
+  [[menus.main]]
+    name = "Tags"
+    pageRef = "/tags"
+    weight = 30

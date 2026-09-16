@@ -1,0 +1,74 @@
+{{ define "main" }}
+  {{- partial "breadcrumbs.html" . }}
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}<p class="retro-text-lg retro-text-secondary retro-mb-4">{{ . | markdownify }}</p>{{ end }}
+  {{- with .Content }}<div class="retro-prose retro-mb-5">{{ . }}</div>{{ end }}
+
+  {{- $repos := partial "func/repos.html" . }}
+
+  {{- with $repos.featured }}
+  <h2 id="featured">{{ i18n "featured" | default "Featured" }}</h2>
+  <div class="project-featured retro-mb-5">
+    {{- range . }}
+    <article class="retro-card retro-shadow-lg">
+      {{- with .cover }}
+      <img class="post-cover" src="{{ . }}" alt="" loading="lazy" decoding="async">
+      {{- end }}
+      <div class="retro-card-header">
+        {{ .title }}
+        {{- if gt .stars 0 }} <span class="retro-badge retro-badge-sm">&#9733; {{ .stars }}</span>{{ end }}
+      </div>
+      <div class="retro-card-content">
+        {{- with .description }}<p class="retro-mt-0">{{ . }}</p>{{ end }}
+        <div class="project-meta">
+          {{- with .language }}<span class="retro-badge retro-badge-sm">{{ . }}</span>{{ end }}
+          {{- if .archived }}<span class="retro-badge retro-badge-sm">archived</span>{{ end }}
+        </div>
+        <div class="retro-flex retro-flex-wrap retro-gap-1 retro-mt-3">
+          {{- with .page }}
+          <a class="retro-btn retro-btn-sm" href="{{ . }}">Read more<span class="retro-sr-only">: {{ $.Title }}</span></a>
+          {{- end }}
+          <a class="retro-btn retro-btn-sm" href="{{ .url }}" rel="noopener" target="_blank">
+            View on GitHub<span class="retro-sr-only">: {{ .title }}</span>
+          </a>
+        </div>
+      </div>
+    </article>
+    {{- end }}
+  </div>
+  {{- end }}
+
+  {{- /* Any write-up pages filed under this section that are not already shown
+         as a featured repo card. */ -}}
+  {{- $written := where .RegularPages "Params.repo" "==" nil }}
+  {{- with $written }}
+  <h2 id="writeups">{{ i18n "writeups" | default "Write-ups" }}</h2>
+  <div class="post-grid retro-mb-5">
+    {{- range . }}{{ partial "post-card.html" . }}{{ end }}
+  </div>
+  {{- end }}
+
+  {{- with $repos.rest }}
+  <h2 id="all-repositories">{{ i18n "allRepositories" | default "All repositories" }}</h2>
+  <ul class="repo-list" role="list">
+    {{- range . }}
+    <li class="repo-item">
+      <div class="repo-head">
+        <a class="repo-name" href="{{ with .page }}{{ . }}{{ else }}{{ .url }}{{ end }}"
+           {{- if not .page }} rel="noopener" target="_blank"{{ end }}>{{ .title }}</a>
+        {{- with .language }}<span class="retro-badge retro-badge-sm">{{ . }}</span>{{ end }}
+        {{- if gt .stars 0 }}<span class="repo-stars">&#9733; {{ .stars }}</span>{{ end }}
+        {{- if .archived }}<span class="retro-badge retro-badge-sm">archived</span>{{ end }}
+      </div>
+      {{- with .description }}<p class="repo-desc">{{ . }}</p>{{ end }}
+    </li>
+    {{- end }}
+  </ul>
+  {{- end }}
+
+  {{- if not $repos.live }}
+  <p class="retro-text-sm retro-text-muted">
+    Repository list served from the last saved snapshot — the GitHub API was not reachable at build time.
+  </p>
+  {{- end }}
+{{ end }}

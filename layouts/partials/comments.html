@@ -1,0 +1,91 @@
+{{- /*
+  Site override of the theme's comments partial. Two changes:
+
+  1. Guards on repoId/categoryId. The theme renders the giscus <script> as soon
+     as provider is "giscus"; with the ids still blank that ships a comment box
+     that can only fail. Here the whole card stays out of the page until both
+     are filled in, so the half-configured state is simply invisible.
+
+  2. Syncs the giscus theme to *this site's* theme rather than the OS. The site
+     defaults to light regardless of prefers-color-scheme (see
+     head/theme-init.html), so "preferred_color_scheme" would drop a dark
+     comment box into a light page for a dark-OS visitor. The initial value is
+     read off <html data-theme>, and the MutationObserver re-syncs when the nav
+     toggle flips it.
+*/ -}}
+{{- $c := site.Params.comments -}}
+{{- $provider := $c.provider | default "none" -}}
+{{- $g := $c.giscus -}}
+{{- $ready := cond (eq $provider "giscus") (and $g.repo $g.repoId $g.categoryId) true -}}
+
+{{- /* Not configured yet: say so while developing, stay silent in production so
+       visitors never meet a half-built comment box. */ -}}
+{{- if and (ne $provider "none") (ne .Params.comments false) (not $ready) (not hugo.IsProduction) }}
+<div class="retro-card retro-mb-5" id="comments">
+  <div class="retro-card-header">{{ i18n "comments" | default "Comments" }}</div>
+  <div class="retro-card-content">
+    <div class="retro-alert retro-alert-warning">
+      <div class="retro-alert-body">
+        <strong>giscus is wired up but not switched on.</strong>
+        This notice only appears on <code>localhost</code>; the published site shows nothing here.
+        <ol class="retro-mb-0">
+          <li>Make <code>{{ $g.repo }}</code> public.</li>
+          <li>Settings &rarr; Features &rarr; enable <strong>Discussions</strong>, then add a
+              <strong>{{ $g.category }}</strong> category.</li>
+          <li>Install the <a href="https://github.com/apps/giscus" rel="noopener" target="_blank">giscus app</a> on that repo.</li>
+          <li>Read <code>repoId</code> and <code>categoryId</code> off
+              <a href="https://giscus.app" rel="noopener" target="_blank">giscus.app</a> and paste them into
+              <code>hugo.toml</code> under <code>[params.comments.giscus]</code>.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+{{- end }}
+
+{{- if and (ne $provider "none") (ne .Params.comments false) $ready }}
+<div class="retro-card retro-mb-5" id="comments">
+  <div class="retro-card-header">{{ i18n "comments" | default "Comments" }}</div>
+  <div class="retro-card-content">
+    {{- if eq $provider "giscus" }}
+    <script src="https://giscus.app/client.js"
+            data-repo="{{ $g.repo }}"
+            data-repo-id="{{ $g.repoId }}"
+            data-category="{{ $g.category }}"
+            data-category-id="{{ $g.categoryId }}"
+            data-mapping="{{ $g.mapping | default "pathname" }}"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-theme="{{ $g.theme | default "preferred_color_scheme" }}"
+            data-lang="{{ site.Language.Lang }}"
+            crossorigin="anonymous" async></script>
+    <script>
+      (function () {
+        var root = document.documentElement;
+        var current = function () { return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'; };
+        var send = function () {
+          var frame = document.querySelector('iframe.giscus-frame');
+          if (!frame || !frame.contentWindow) return;
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme: current() } } }, 'https://giscus.app');
+        };
+        // The script tag's data-theme is baked at build time, so the first
+        // value is pushed once the frame exists.
+        window.addEventListener('message', function (e) {
+          if (e.origin === 'https://giscus.app') send();
+        });
+        new MutationObserver(send).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+      })();
+    </script>
+    {{- else if eq $provider "utterances" }}
+    <script src="https://utteranc.es/client.js"
+            repo="{{ $c.utterances.repo }}"
+            issue-term="{{ $c.utterances.issueTerm | default "pathname" }}"
+            label="{{ $c.utterances.label }}"
+            theme="github-light"
+            crossorigin="anonymous" async></script>
+    {{- end }}
+    <noscript>{{ i18n "commentsNoScript" | default "Comments require JavaScript." }}</noscript>
+  </div>
+</div>
+{{- end -}}

@@ -1,0 +1,61 @@
+# Controls the /projects/ page. The repo list itself is fetched live from the
+# GitHub API at build time; everything here is the manual layer on top of it.
+#
+# `overrides` is a list rather than a keyed table on purpose: every key is then
+# declared in .pages.yml, so the CMS can rewrite this file without silently
+# dropping anything it was not told about.
+
+user = "BoraYalcinn"
+
+# Shown large, at the top, in this order. Repo names exactly as on GitHub.
+featured = [
+  "CezveRender",
+]
+
+# Never listed anywhere on the page.
+hidden = [
+  "BoraYalcinn",
+  "BoraYalcinn.github.io",
+]
+
+# Forks are hidden by default; list any you want shown anyway.
+showForks = [
+  "godot",
+]
+
+# Per-repo overrides for what GitHub reports. Anything omitted falls back to
+# the API. `repo` is required and matches the GitHub repo name.
+
+[[overrides]]
+  repo = "CezveRender"
+  title = "CezveRender"
+  description = "A real-time 3D renderer written from scratch in Java, on OpenGL 3.3 and LWJGL. Shadow mapping, Phong lighting and a live ImGui scene editor."
+
+[[overrides]]
+  repo = "godot"
+  title = "Godot Engine (contributions)"
+  description = "Rendering fixes to the Compatibility/GLES3 renderer, upstream."
+
+[[overrides]]
+  repo = "RayTracing-PeterShirley"
+  description = "Placeholder — will replace. Ray tracer following Peter Shirley's series."
+
+[[overrides]]
+  repo = "FoveatedRendering-EyeTracking"
+  description = "Placeholder — will replace. Foveated rendering driven by eye tracking."
+
+[[overrides]]
+  repo = "CSE_232-TermProject"
+  description = "Placeholder — will replace."
+
+[[overrides]]
+  repo = "Learning-OpenGL"
+  description = "Placeholder — will replace. OpenGL exercises and notes."
+
+[[overrides]]
+  repo = "AUV"
+  description = "Placeholder — will replace. Autonomous underwater vehicle work."
+
+[[overrides]]
+  repo = "unity-math-playground"
+  description = "Placeholder — will replace. Unity experiments for maths and graphics."

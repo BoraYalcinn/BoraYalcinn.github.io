@@ -1,0 +1,93 @@
+{{- /*
+  Returns the GitHub repo list for /projects/, as a dict:
+
+      { "featured": [...], "rest": [...], "live": bool }
+
+  Each entry: name, title, description, url, language, stars, fork, page.
+
+  The list is fetched from the GitHub API at build time, then merged with
+  data/projects.toml (hidden, showForks, overrides, featured order).
+
+  Why a snapshot fallback: an unauthenticated GitHub API is 60 requests/hour per
+  IP, and CI runners share addresses — so a deploy can lose the call through no
+  fault of the site. Falling back to data/reposSnapshot.json means a rate-limited
+  or offline build still ships a complete page instead of an empty one. Set
+  HUGO_GITHUB_TOKEN in CI to raise the limit and keep the live path.
+*/ -}}
+{{- $cfg := index hugo.Data "projects" -}}
+{{- $user := $cfg.user | default "BoraYalcinn" -}}
+{{- $url := printf "https://api.github.com/users/%s/repos?per_page=100&sort=updated" $user -}}
+
+{{- $headers := dict "Accept" "application/vnd.github+json" "User-Agent" "hugo-build" -}}
+{{- with getenv "HUGO_GITHUB_TOKEN" }}
+  {{- $headers = merge $headers (dict "Authorization" (printf "Bearer %s" .)) -}}
+{{- end -}}
+
+{{- $raw := slice -}}
+{{- $live := false -}}
+{{- with try (resources.GetRemote $url (dict "headers" $headers)) -}}
+  {{- with .Err -}}
+    {{- warnf "projects: GitHub API unreachable (%s); falling back to data/reposSnapshot.json" . -}}
+  {{- else with .Value -}}
+    {{- $raw = .Content | transform.Unmarshal -}}
+    {{- $live = true -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $live -}}
+  {{- $raw = (index hugo.Data "reposSnapshot") | default slice -}}
+  {{- if not $raw }}{{ warnf "projects: no snapshot either — the repo list will be empty" }}{{ end -}}
+{{- end -}}
+
+{{- /* Normalise + filter. */ -}}
+{{- $hidden := $cfg.hidden | default slice -}}
+{{- $showForks := $cfg.showForks | default slice -}}
+{{- /* overrides is a list of {repo, title, description, cover}; index it by
+       repo name once rather than scanning it per repo. */ -}}
+{{- $overrides := dict -}}
+{{- range $cfg.overrides | default slice -}}
+  {{- $o := . -}}
+  {{- with .repo }}{{ $overrides = merge $overrides (dict . $o) }}{{ end -}}
+{{- end -}}
+{{- $items := slice -}}
+{{- range $raw -}}
+  {{- $name := .name -}}
+  {{- if in $hidden $name }}{{ continue }}{{ end -}}
+  {{- if and .fork (not (in $showForks $name)) }}{{ continue }}{{ end -}}
+  {{- $o := index $overrides $name | default dict -}}
+  {{- /* A repo may also have a write-up page here, matched by `repo:` in its
+         front matter; the card then points at that page instead of GitHub. */ -}}
+  {{- $page := "" -}}
+  {{- $cover := $o.cover | default "" -}}
+  {{- with where site.RegularPages "Params.repo" $name -}}
+    {{- $p := index . 0 -}}
+    {{- $page = $p.RelPermalink -}}
+    {{- /* The page's own cover wins over one named in the data file, so a
+           project with a write-up is illustrated the same way a post is. */ -}}
+    {{- with partial "func/cover.html" $p }}{{ $cover = . }}{{ end -}}
+  {{- end -}}
+  {{- $items = $items | append (dict
+      "name" $name
+      "title" ($o.title | default $name)
+      "description" ($o.description | default .description | default "")
+      "url" ($o.url | default .html_url)
+      "page" $page
+      "cover" $cover
+      "language" (.language | default "")
+      "stars" (.stargazers_count | default 0)
+      "archived" (.archived | default false)
+    ) -}}
+{{- end -}}
+
+{{- /* Split into featured (in the data file's order) and the rest. */ -}}
+{{- $featuredNames := $cfg.featured | default slice -}}
+{{- $featured := slice -}}
+{{- range $featuredNames -}}
+  {{- $n := . -}}
+  {{- with where $items "name" $n }}{{ $featured = $featured | append (index . 0) }}{{ end -}}
+{{- end -}}
+{{- $rest := where $items "name" "not in" $featuredNames -}}
+
+{{- /* `all` is featured+rest in one slice; `union` refuses slices of maps. */ -}}
+{{- $all := $featured -}}
+{{- range $rest }}{{ $all = $all | append . }}{{ end -}}
+{{- return (dict "featured" $featured "rest" $rest "all" $all "live" $live) -}}

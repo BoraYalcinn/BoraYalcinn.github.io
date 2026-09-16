@@ -1,0 +1,26 @@
+{{- /*
+  Site override of the theme's partial: this site opens in LIGHT mode by
+  default, instead of following prefers-color-scheme on a first visit.
+
+  Two things have to agree, or a dark-OS visitor gets a flash or a flip:
+
+  1. The attribute, set here before the first paint. RetroCSS's dark rules are
+     scoped `:root:not([data-theme=light])`, so `light` wins over the media
+     query with no extra CSS.
+  2. localStorage. retro.min.js resolves its start theme as
+     stored || prefers-color-scheme || light, then re-applies it on DOMContentLoaded
+     — so without a stored value it would flip a dark-OS visitor back to dark
+     after paint. Seeding "light" is what makes the default stick.
+
+  The toggle still works normally: it overwrites the stored value either way.
+*/ -}}
+<script>
+  try {
+    var retroTheme = localStorage.getItem('retro-theme');
+    if (!retroTheme) { retroTheme = 'light'; localStorage.setItem('retro-theme', retroTheme); }
+    document.documentElement.setAttribute('data-theme', retroTheme);
+  } catch (e) {
+    /* storage blocked: the attribute alone still forces light */
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+</script>

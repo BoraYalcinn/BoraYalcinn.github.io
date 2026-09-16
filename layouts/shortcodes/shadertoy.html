@@ -1,0 +1,18 @@
+{{- /*
+  Embeds a Shadertoy shader mid-article:
+
+      {{< shadertoy id="3dXyWj" title="Raymarched clouds" >}}
+
+  For the page's main shader, prefer the `shaderId` front-matter field — the
+  layout renders it above the body, and it is editable as a plain form field
+  in the CMS.
+*/ -}}
+{{- $id := .Get "id" -}}
+{{- if not $id -}}
+  {{- errorf "shadertoy shortcode: missing `id` (in %s)" .Page.File.Filename -}}
+{{- end -}}
+{{- partial "func/shadertoy-embed.html" (dict
+      "id" $id
+      "title" (.Get "title")
+      "gui" (.Get "gui")
+      "paused" (.Get "paused")) -}}

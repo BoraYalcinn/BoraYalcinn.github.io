@@ -1,0 +1,222 @@
+[
+ {
+  "name": "RayTracing-PeterShirley",
+  "description": null,
+  "html_url": "https://github.com/BoraYalcinn/RayTracing-PeterShirley",
+  "language": "C++",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-09-16T06:45:20Z",
+  "homepage": ""
+ },
+ {
+  "name": "foveated-path-tracing",
+  "description": "Gaze-contingent foveated ray tracing on AMD Capsaicin framework",
+  "html_url": "https://github.com/BoraYalcinn/foveated-path-tracing",
+  "language": "C++",
+  "stargazers_count": 1,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-08-28T16:39:11Z",
+  "homepage": null
+ },
+ {
+  "name": "turkcell-puan-cuzdani",
+  "description": "Microservices-based points & rewards wallet system built with Java 17, Spring Boot, Oracle and Redis. Features JWT-secured API gateway, transactional ledger with optimistic locking, and full Docker Compose setup.",
+  "html_url": "https://github.com/BoraYalcinn/turkcell-puan-cuzdani",
+  "language": "Java",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-08-21T17:31:08Z",
+  "homepage": ""
+ },
+ {
+  "name": "BoraYalcinn",
+  "description": null,
+  "html_url": "https://github.com/BoraYalcinn/BoraYalcinn",
+  "language": null,
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-08-13T14:34:20Z",
+  "homepage": null
+ },
+ {
+  "name": "BarelyAnEngine",
+  "description": "BarelyAnEngine is a C++ software Renderer built entirely from scratch, focusing on core graphics math and minimal external dependencies.",
+  "html_url": "https://github.com/BoraYalcinn/BarelyAnEngine",
+  "language": "C++",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-08-13T12:45:09Z",
+  "homepage": ""
+ },
+ {
+  "name": "godot",
+  "description": "Godot Engine – Multi-platform 2D and 3D game engine",
+  "html_url": "https://github.com/BoraYalcinn/godot",
+  "language": null,
+  "stargazers_count": 0,
+  "fork": true,
+  "archived": false,
+  "updated_at": "2026-08-05T19:36:06Z",
+  "homepage": "https://godotengine.org"
+ },
+ {
+  "name": "J-BattleCity",
+  "description": "A replica of an old retro game called Battle City made using java",
+  "html_url": "https://github.com/BoraYalcinn/J-BattleCity",
+  "language": "Java",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-07-19T17:30:07Z",
+  "homepage": null
+ },
+ {
+  "name": "FoveatedRendering-EyeTracking",
+  "description": null,
+  "html_url": "https://github.com/BoraYalcinn/FoveatedRendering-EyeTracking",
+  "language": "C#",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-07-18T20:54:08Z",
+  "homepage": null
+ },
+ {
+  "name": "CezveRender",
+  "description": null,
+  "html_url": "https://github.com/BoraYalcinn/CezveRender",
+  "language": "Java",
+  "stargazers_count": 5,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-07-05T04:35:19Z",
+  "homepage": null
+ },
+ {
+  "name": "CSE_232-TermProject",
+  "description": null,
+  "html_url": "https://github.com/BoraYalcinn/CSE_232-TermProject",
+  "language": "C",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-06-16T18:54:47Z",
+  "homepage": null
+ },
+ {
+  "name": "Inventory-Management-System",
+  "description": "an inventory management system made using java",
+  "html_url": "https://github.com/BoraYalcinn/Inventory-Management-System",
+  "language": "Java",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-06-16T18:54:24Z",
+  "homepage": null
+ },
+ {
+  "name": "Learning-OpenGL",
+  "description": null,
+  "html_url": "https://github.com/BoraYalcinn/Learning-OpenGL",
+  "language": "C++",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-02-22T08:43:54Z",
+  "homepage": null
+ },
+ {
+  "name": "AUV",
+  "description": null,
+  "html_url": "https://github.com/BoraYalcinn/AUV",
+  "language": "Python",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-02-21T16:40:24Z",
+  "homepage": null
+ },
+ {
+  "name": "unity-math-playground",
+  "description": null,
+  "html_url": "https://github.com/BoraYalcinn/unity-math-playground",
+  "language": "C#",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-02-08T21:33:51Z",
+  "homepage": null
+ },
+ {
+  "name": "Procedural-Shader-Terrain",
+  "description": "I am building a GPU-driven procedural terrain generator using Raylib and GLSL.",
+  "html_url": "https://github.com/BoraYalcinn/Procedural-Shader-Terrain",
+  "language": "C",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-02-02T19:22:59Z",
+  "homepage": null
+ },
+ {
+  "name": "CSE_211_PROJECT_18",
+  "description": "Airline Crew Rostering Program made for the Data Structures Course Term Project",
+  "html_url": "https://github.com/BoraYalcinn/CSE_211_PROJECT_18",
+  "language": "HTML",
+  "stargazers_count": 1,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-02-02T13:44:44Z",
+  "homepage": ""
+ },
+ {
+  "name": "Snake-Game-Raylib",
+  "description": "It's a simple Snake Game I've made using Raylib and C++",
+  "html_url": "https://github.com/BoraYalcinn/Snake-Game-Raylib",
+  "language": "C",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-01-25T08:50:41Z",
+  "homepage": ""
+ },
+ {
+  "name": "Tetris-Game-Unity",
+  "description": "I am making a Tetris game using Unity",
+  "html_url": "https://github.com/BoraYalcinn/Tetris-Game-Unity",
+  "language": "C#",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-01-23T21:45:23Z",
+  "homepage": null
+ },
+ {
+  "name": "Shaders-Raylib",
+  "description": "This is a simple shaders project for learning the basics of shaders with Raylib",
+  "html_url": "https://github.com/BoraYalcinn/Shaders-Raylib",
+  "language": "C",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2026-01-19T19:46:56Z",
+  "homepage": ""
+ },
+ {
+  "name": "Basic-Password-Generator",
+  "description": "A Java project that generates passwords based on custom rules.",
+  "html_url": "https://github.com/BoraYalcinn/Basic-Password-Generator",
+  "language": "Java",
+  "stargazers_count": 0,
+  "fork": false,
+  "archived": false,
+  "updated_at": "2025-12-08T15:35:46Z",
+  "homepage": null
+ }
+]

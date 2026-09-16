@@ -1,0 +1,24 @@
+{{- /*
+  Renders one Shadertoy embed. Shared by the `shadertoy` shortcode (for embeds
+  placed mid-article) and by the shaders layout, which renders the page's
+  `shaderId` front-matter field automatically — so a shader can be published
+  from the CMS without typing a shortcode.
+
+  Expects a dict: id (required), title, gui, paused.
+*/ -}}
+{{- $id := .id -}}
+{{- $title := .title | default (printf "Shadertoy shader %s" $id) -}}
+{{- $gui := cond (eq (printf "%v" .gui) "false") "false" "true" -}}
+{{- $paused := cond (eq (printf "%v" .paused) "true") "true" "false" -}}
+<figure class="shadertoy">
+  <div class="shadertoy-frame">
+    <iframe src="https://www.shadertoy.com/embed/{{ $id }}?gui={{ $gui }}&t=10&paused={{ $paused }}&muted=true"
+            title="{{ $title }}"
+            loading="lazy"
+            allowfullscreen
+            allow="fullscreen"></iframe>
+  </div>
+  <figcaption>
+    <a href="https://www.shadertoy.com/view/{{ $id }}" rel="noopener" target="_blank">{{ $title }} — open on Shadertoy</a>
+  </figcaption>
+</figure>

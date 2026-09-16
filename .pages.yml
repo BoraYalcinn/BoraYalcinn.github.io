@@ -1,0 +1,256 @@
+# Pages CMS (pagescms.org) — the browser-based editor for this site.
+# Open https://app.pagescms.org, sign in with GitHub, pick this repo.
+#
+# Every field below maps to a real front-matter key the layouts read. Adding a
+# field here does not make the site use it; check the layouts first.
+
+media:
+  # Uploads land in static/images/ and are referenced as /images/... , which is
+  # exactly how Hugo serves the static folder.
+  input: static/images
+  output: /images
+  categories: [image]
+  rename: safe
+
+content:
+  - name: blog
+    label: Blog posts
+    type: collection
+    path: content/blog
+    format: yaml-frontmatter
+    subfolders: false
+    filename: "{fields.title}.md"
+    view:
+      primary: title
+      sort: date
+      order: desc
+      fields: [title, date, draft, categories]
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        options:
+          format: yyyy-MM-dd
+      - name: draft
+        label: Draft
+        type: boolean
+        default: true
+        description: "Drafts stay off the published site. Untick to publish."
+      - name: description
+        label: Summary
+        type: text
+        description: "One line. Shown on cards, in search results and when the link is shared."
+      - name: categories
+        label: Categories
+        type: select
+        options:
+          multiple: true
+          values: [Dev, Photography, Life, Cinema, Video Games]
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: cover
+        label: Cover image
+        type: image
+      - name: featured
+        label: Feature on the home page
+        type: boolean
+        default: false
+        description: "The newest featured post gets the big card at the top of the home page."
+      - name: body
+        label: Body
+        type: rich-text
+
+  - name: shaders
+    label: Shaders
+    type: collection
+    path: content/shaders
+    format: yaml-frontmatter
+    subfolders: false
+    filename: "{fields.title}.md"
+    view:
+      primary: title
+      sort: date
+      order: desc
+      fields: [title, date, draft, shaderId]
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        options:
+          format: yyyy-MM-dd
+      - name: draft
+        label: Draft
+        type: boolean
+        default: true
+      - name: description
+        label: Summary
+        type: text
+      - name: shaderId
+        label: Shadertoy ID
+        type: string
+        required: true
+        description: "Last part of the shader's URL — shadertoy.com/view/XXXXXX. The embed is added above the text automatically."
+      - name: shaderPaused
+        label: Start paused
+        type: boolean
+        default: false
+      - name: categories
+        label: Categories
+        type: select
+        options:
+          multiple: true
+          values: [Dev, Photography, Life, Cinema, Video Games]
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: cover
+        label: Cover image
+        type: image
+      - name: body
+        label: Notes
+        type: rich-text
+
+  - name: projects
+    label: Project write-ups
+    type: collection
+    path: content/projects
+    format: yaml-frontmatter
+    subfolders: false
+    filename: "{fields.title}.md"
+    exclude: ["_index.md"]
+    view:
+      primary: title
+      sort: date
+      order: desc
+      fields: [title, date, draft, repo]
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        options:
+          format: yyyy-MM-dd
+      - name: draft
+        label: Draft
+        type: boolean
+        default: true
+      - name: repo
+        label: GitHub repo name
+        type: string
+        description: "Exact repo name, e.g. CezveRender. Links this page to the repo: the card gains a Read more button, and language / stars / link are pulled live."
+      - name: description
+        label: Summary
+        type: text
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: cover
+        label: Cover image
+        type: image
+      - name: body
+        label: Body
+        type: rich-text
+
+  # --- single files -------------------------------------------------------
+  - name: home
+    label: Home page (about me)
+    type: file
+    path: content/_index.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Site title
+        type: string
+      - name: body
+        label: About me
+        type: rich-text
+        description: "Shows on the home page, between the description and the post feed."
+
+  - name: projects_index
+    label: Projects page intro
+    type: file
+    path: content/projects/_index.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Summary
+        type: text
+      - name: body
+        label: Intro text
+        type: rich-text
+
+  - name: shaders_index
+    label: Shaders page intro
+    type: file
+    path: content/shaders/_index.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Summary
+        type: text
+      - name: body
+        label: Intro text
+        type: rich-text
+
+  - name: featured_repos
+    label: Featured projects & repo list
+    type: file
+    path: data/projects.toml
+    format: toml
+    fields:
+      - name: user
+        label: GitHub username
+        type: string
+      - name: featured
+        label: Featured repos
+        type: string
+        list: true
+        description: "Repo names, in the order they should appear as big cards."
+      - name: hidden
+        label: Hidden repos
+        type: string
+        list: true
+      - name: showForks
+        label: Forks to show anyway
+        type: string
+        list: true
+      - name: overrides
+        label: Per-repo overrides
+        type: object
+        list: true
+        description: "Replace what GitHub reports for one repo. Leave a field empty to keep GitHub's own value."
+        fields:
+          - name: repo
+            label: Repo name
+            type: string
+            required: true
+          - name: title
+            label: Display title
+            type: string
+          - name: description
+            label: Description
+            type: text
+          - name: cover
+            label: Cover image
+            type: image
