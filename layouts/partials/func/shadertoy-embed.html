@@ -1,16 +1,26 @@
 {{- /*
-  Renders one Shadertoy embed. Shared by the `shadertoy` shortcode (for embeds
-  placed mid-article) and by the shaders layout, which renders the page's
-  `shaderId` front-matter field automatically — so a shader can be published
-  from the CMS without typing a shortcode.
+  Renders one Shadertoy shader.
 
-  Expects a dict: id (required), title, gui, paused.
+  Default is a poster, not an iframe. Shadertoy sits behind Cloudflare, and a
+  cross-origin iframe reaches it without Shadertoy's cookies — Chrome blocks
+  third-party cookies by default — so Cloudflare serves a bot challenge instead
+  of the shader, and that challenge page's X-Frame-Options refuses framing. The
+  visitor gets "refused to connect" in a grey box. Opening the same embed URL in
+  a tab works fine, which is what makes the poster a real substitute: it is a
+  picture of the shader that opens the working page in one click.
+
+  Set `shaderEmbed: true` in a page's front matter to try the iframe anyway.
+
+  Expects a dict: id (required), title, cover, embed, gui, paused.
 */ -}}
 {{- $id := .id -}}
 {{- $title := .title | default (printf "Shadertoy shader %s" $id) -}}
-{{- $gui := cond (eq (printf "%v" .gui) "false") "false" "true" -}}
-{{- $paused := cond (eq (printf "%v" .paused) "true") "true" "false" -}}
+{{- $url := printf "https://www.shadertoy.com/view/%s" $id -}}
+{{- $cover := .cover -}}
 <figure class="shadertoy">
+  {{- if .embed }}
+  {{- $gui := cond (eq (printf "%v" .gui) "false") "false" "true" -}}
+  {{- $paused := cond (eq (printf "%v" .paused) "true") "true" "false" -}}
   <div class="shadertoy-frame">
     <iframe src="https://www.shadertoy.com/embed/{{ $id }}?gui={{ $gui }}&t=10&paused={{ $paused }}&muted=true"
             title="{{ $title }}"
@@ -18,7 +28,18 @@
             allowfullscreen
             allow="fullscreen"></iframe>
   </div>
+  {{- else }}
+  <a class="shadertoy-frame shadertoy-poster" href="{{ $url }}" rel="noopener" target="_blank">
+    {{- with $cover }}
+    <img src="{{ . }}" alt="" loading="lazy" decoding="async">
+    {{- else }}
+    <span class="shadertoy-poster-blank" aria-hidden="true">{{ $id }}</span>
+    {{- end }}
+    <span class="shadertoy-play" aria-hidden="true">&#9654;</span>
+    <span class="retro-sr-only">Run {{ $title }} on Shadertoy</span>
+  </a>
+  {{- end }}
   <figcaption>
-    <a href="https://www.shadertoy.com/view/{{ $id }}" rel="noopener" target="_blank">{{ $title }} — open on Shadertoy</a>
+    <a href="{{ $url }}" rel="noopener" target="_blank">{{ $title }} — open on Shadertoy</a>
   </figcaption>
 </figure>

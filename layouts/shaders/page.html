@@ -21,7 +21,12 @@
         {{- /* The page's own shader, above the write-up. Entering an id in the
                CMS is all a new shader page needs. */ -}}
         {{- with .Params.shaderId }}
-        {{- partial "func/shadertoy-embed.html" (dict "id" . "title" $.Title "paused" $.Params.shaderPaused) }}
+        {{- partial "func/shadertoy-embed.html" (dict
+              "id" .
+              "title" $.Title
+              "cover" $cover
+              "embed" $.Params.shaderEmbed
+              "paused" $.Params.shaderPaused) }}
         {{- end }}
 
         <div class="retro-prose">

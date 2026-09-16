@@ -100,8 +100,13 @@ content:
         type: string
         required: true
         description: "Last part of the shader's URL — shadertoy.com/view/XXXXXX. The embed is added above the text automatically."
+      - name: shaderEmbed
+        label: Try the live embed
+        type: boolean
+        default: false
+        description: "Off by default: Shadertoy sits behind Cloudflare, which serves a bot challenge to a cross-origin iframe and refuses to be framed. The poster opens the working page instead. Tick to try the embed anyway."
       - name: shaderPaused
-        label: Start paused
+        label: Start paused (embed only)
         type: boolean
         default: false
       - name: categories

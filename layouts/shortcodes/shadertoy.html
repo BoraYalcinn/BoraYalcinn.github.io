@@ -14,5 +14,7 @@
 {{- partial "func/shadertoy-embed.html" (dict
       "id" $id
       "title" (.Get "title")
+      "cover" (.Get "cover")
+      "embed" (eq (.Get "embed") "true")
       "gui" (.Get "gui")
       "paused" (.Get "paused")) -}}

@@ -84,8 +84,21 @@ To place a *second* shader mid-article, the shortcode is still there:
 {{< shadertoy id="XXXXXX" title="Something else" >}}
 ```
 
-The embed sits in a 16:9 box and is lazy-loaded, with a link to Shadertoy
-underneath so the shader stays reachable if the iframe is blocked.
+### Why it is a poster, not a live embed
+
+Shadertoy sits behind Cloudflare. A cross-origin iframe reaches it without
+Shadertoy's cookies — Chrome blocks third-party cookies by default — so
+Cloudflare answers with a bot challenge, and that challenge page refuses to be
+framed. The visitor gets "refused to connect" in a grey box. Opening the same
+embed URL in a tab works, which is what makes the poster a fair substitute: a
+still of the shader that opens the working page in one click.
+
+So the page shows a 16:9 poster with a play button. Give the shader a `cover`
+and that image fills it; without one it falls back to a dark panel showing the
+shader id. Either way the caption links to Shadertoy.
+
+To try the live embed on a page anyway, set `shaderEmbed: true` ("Try the live
+embed" in the CMS).
 
 Shaders live in their own section and deliberately do **not** appear in the home
 page feed.
