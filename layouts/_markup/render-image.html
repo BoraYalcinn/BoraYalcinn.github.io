@@ -1,0 +1,37 @@
+{{- /*
+  Overrides the theme's image render hook, which crashes on any image that is
+  not a Hugo resource — i.e. every image uploaded through the CMS, since those
+  land in static/ rather than assets/.
+
+  The theme builds the width/height attribute with `cond`, and Go templates
+  evaluate every argument of `cond` before choosing one, so `$res.Width` is read
+  even when `$res` is still the empty string the hook starts with:
+
+      execute of template failed: can't evaluate field Width in type string
+
+  Same output as the theme's version — lazy, dimensioned where Hugo can measure
+  the file, a title attribute becoming a caption — but the dimensions are only
+  read inside `with`, where there is a resource to read them from.
+*/ -}}
+{{- $src := .Destination -}}
+{{- $res := "" -}}
+{{- if not (urls.Parse .Destination).IsAbs -}}
+  {{- with .Page.Resources.GetMatch .Destination }}{{ $res = . }}{{ else }}
+    {{- with resources.Get .Destination }}{{ $res = . }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- $dims := "" -}}
+{{- with $res -}}
+  {{- $src = .RelPermalink -}}
+  {{- if in (slice "image/png" "image/jpeg" "image/webp" "image/gif") .MediaType.Type -}}
+    {{- $dims = printf ` width="%d" height="%d"` .Width .Height -}}
+  {{- end -}}
+{{- end -}}
+{{- $img := printf `<img src="%s" alt="%s"%s loading="lazy" decoding="async">`
+      $src (.PlainText | plainify) $dims
+-}}
+{{- if .Title -}}
+<figure>{{ $img | safeHTML }}<figcaption>{{ .Title | markdownify }}</figcaption></figure>
+{{- else -}}
+{{ $img | safeHTML }}
+{{- end -}}

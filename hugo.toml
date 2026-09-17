@@ -13,6 +13,19 @@ capitalizeListTitles = false
 [markup.goldmark.renderer]
   unsafe = true
 
+# Math in posts. `passthrough` stops Goldmark from touching what sits between
+# the delimiters — without it, an underscore inside \text{look_from} turns into
+# emphasis and the formula is mangled before it is ever rendered. The rendering
+# itself happens at build time in layouts/_markup/render-passthrough.html, using
+# the KaTeX that ships inside Hugo, so no script or stylesheet is loaded.
+[markup.goldmark.extensions.passthrough]
+  enable = true
+  [markup.goldmark.extensions.passthrough.delimiters]
+    block = [['$$', '$$'], ['\\[', '\\]']]
+    # Inline math is \(...\) only. A bare $...$ pair would also make "$5 to $10"
+    # in an ordinary sentence render as a formula.
+    inline = [['\\(', '\\)']]
+
 [pagination]
   pagerSize = 6
 

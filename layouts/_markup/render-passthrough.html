@@ -1,0 +1,22 @@
+{{- /*
+  Renders the math that markup.goldmark.extensions.passthrough hands over,
+  at build time, with the KaTeX that is compiled into Hugo.
+
+  `output: mathml` is deliberate: MathML is drawn by the browser itself, so a
+  formula needs no stylesheet and no script — nothing to load, nothing to go
+  stale, and it stays legible in both themes because it inherits the page's own
+  text colour. (KaTeX's HTML output would look identical but drags in
+  katex.min.css to do it.)
+
+  A formula that does not parse must not take the build down with it, so errors
+  are reported as a warning and the source is left on the page as written.
+*/ -}}
+{{- $opts := dict "output" "mathml" "displayMode" (eq .Type "block") -}}
+{{- with try (transform.ToMath .Inner $opts) -}}
+  {{- with .Err -}}
+    {{- warnf "math: %s could not be rendered (%s)" $.Inner . -}}
+    {{- $.Inner -}}
+  {{- else -}}
+    {{- .Value -}}
+  {{- end -}}
+{{- end -}}
