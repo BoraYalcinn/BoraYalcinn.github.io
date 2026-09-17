@@ -66,7 +66,12 @@ content:
         description: "The newest featured post gets the big card at the top of the home page."
       - name: body
         label: Body
-        type: rich-text
+      # Markdown olarak düz metin — rich-text DEĞİL. Pages CMS'in zengin metin
+      # editörü içeriği HTML'e çevirip markdown'a geri yazıyor ve bu turda
+      # kayıplar oluyor: LaTeX'teki \_ kaçışları siliniyor (\text{look\_from}
+      # -> \text{lookfrom}), HTML yorumları tamamen düşüyor. Bu alanı düz metin
+      # tutmak yazdığın markdown'ın dosyada aynen kalmasını sağlıyor.
+        type: text
 
   - name: shaders
     label: Shaders
@@ -130,7 +135,12 @@ content:
         type: image
       - name: body
         label: Notes
-        type: rich-text
+      # Markdown olarak düz metin — rich-text DEĞİL. Pages CMS'in zengin metin
+      # editörü içeriği HTML'e çevirip markdown'a geri yazıyor ve bu turda
+      # kayıplar oluyor: LaTeX'teki \_ kaçışları siliniyor (\text{look\_from}
+      # -> \text{lookfrom}), HTML yorumları tamamen düşüyor. Bu alanı düz metin
+      # tutmak yazdığın markdown'ın dosyada aynen kalmasını sağlıyor.
+        type: text
 
   - name: projects
     label: Project write-ups
@@ -175,7 +185,12 @@ content:
         type: image
       - name: body
         label: Body
-        type: rich-text
+      # Markdown olarak düz metin — rich-text DEĞİL. Pages CMS'in zengin metin
+      # editörü içeriği HTML'e çevirip markdown'a geri yazıyor ve bu turda
+      # kayıplar oluyor: LaTeX'teki \_ kaçışları siliniyor (\text{look\_from}
+      # -> \text{lookfrom}), HTML yorumları tamamen düşüyor. Bu alanı düz metin
+      # tutmak yazdığın markdown'ın dosyada aynen kalmasını sağlıyor.
+        type: text
 
   # --- single files -------------------------------------------------------
   - name: home
@@ -189,7 +204,7 @@ content:
         type: string
       - name: body
         label: About me
-        type: rich-text
+        type: text
         description: "Shows on the home page, between the description and the post feed."
 
   - name: projects_index
@@ -206,7 +221,7 @@ content:
         type: text
       - name: body
         label: Intro text
-        type: rich-text
+        type: text
 
   - name: shaders_index
     label: Shaders page intro
@@ -222,7 +237,7 @@ content:
         type: text
       - name: body
         label: Intro text
-        type: rich-text
+        type: text
 
   - name: featured_repos
     label: Featured projects & repo list

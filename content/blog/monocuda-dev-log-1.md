@@ -1,7 +1,7 @@
 ---
 title: "MonoCUDA — Dev Log #1"
 date: 2026-09-17
-draft: true
+draft: false
 description: "Starting MonoCUDA, a single-file CUDA path tracer: the CUDA
   basics, ray-sphere and ray-triangle intersection, and getting a camera to fire
   the first rays."
@@ -65,7 +65,9 @@ Given all this, the obvious move was to make the render function itself a kernel
 
 The very first thing I rendered was a gradient going from the top-left to the bottom-right — that's just the direction I like starting with, it feels natural to me.
 
-
+<!-- TODO: gradient render'ı yükle, sonra bu satırı geri aç:
+![gradient render — early test image](/images/blog/GORSEL.jpg)
+-->
 
 Before jumping into actual ray tracing, I warmed up with rasterization: I printed a white triangle on screen using the classic **edge function** test — for a point to be inside a triangle, it needs to fall on the same side of all three edges.
 
@@ -164,11 +166,11 @@ We know how to test rays against geometry, but we still haven't talked about whe
 
 The camera first builds its own little coordinate system out of `look_from`, `look_at`, and `up`:
 
-$$w = \frac{\text{lookfrom} - \text{lookat}}{\lVert \text{lookfrom} - \text{lookat} \rVert}, \quad u = \frac{\text{up} \times w}{\lVert \text{up} \times w \rVert}, \quad v = w \times u$$
+$$w = \frac{\text{look\_from} - \text{look\_at}}{\lVert \text{look\_from} - \text{look\_at} \rVert}, \quad u = \frac{\text{up} \times w}{\lVert \text{up} \times w \rVert}, \quad v = w \times u$$
 
 Then the vertical field of view (`vfov`) and a bit of trigonometry give us the physical size of the viewport at the given focus distance:
 
-$$\theta = \text{vfov} \cdot \frac{\pi}{180}, \quad h = \tan\left(\frac{\theta}{2}\right), \quad \text{viewportheight} = 2h \cdot \text{focusdistance}$$
+$$\theta = \text{vfov} \cdot \frac{\pi}{180}, \quad h = \tan\left(\frac{\theta}{2}\right), \quad \text{viewport\_height} = 2h \cdot \text{focus\_distance}$$
 
 From there, the viewport's edges become real 3D vectors (`u` scaled by width, `v` scaled by height), which get divided by the image resolution to find out how much space a single pixel actually covers, and finally, the very first pixel's center position:
 
