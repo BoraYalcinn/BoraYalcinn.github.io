@@ -1,20 +1,18 @@
 ---
-title: "MonoCUDA -  Dev Log #1"
+title: "MonoCUDA — Dev Log #1"
 date: 2026-09-17
 draft: true
+description: "Starting MonoCUDA, a single-file CUDA path tracer: the CUDA basics, ray-sphere and ray-triangle intersection, and getting a camera to fire the first rays."
 categories:
   - Dev
 tags:
-  - CUDA
-  - ComputerGraphics
-cover: /images/renderv2.jpg
+  - cuda
+  - path-tracing
+  - computer-graphics
+  - graphics-programming
+  - gpu
+cover: /images/blog/renderv2.jpg
 featured: true
----
----
-title: "Dev Log #1 — Starting MonoCUDA, a single-file CUDA path tracer"
-date: 2026-09-17T22:13:50+00:00
-draft: false
-tags: ["cuda", "path-tracing","computer-graphics", "graphics-programming", "gpu"]
 ---
 
 Hi everyone, this is my first blog post and dev log number one for my new project, **MonoCUDA** — a path tracer I'm building in CUDA, in a single file. In this post I'll go over what I've learned about CUDA so far, what I've covered in the project, and some of the math essentials for a project like this. All the drawings in this post are my own — I tried my best to visualize how I think about the math and the calculations. So let's get started!
@@ -66,11 +64,13 @@ Given all this, the obvious move was to make the render function itself a kernel
 
 The very first thing I rendered was a gradient going from the top-left to the bottom-right — that's just the direction I like starting with, it feels natural to me.
 
-![gradient render — early test image](gradient.png)
+<!-- TODO: gradient render'ı yükle, sonra bu satırı geri aç:
+![gradient render — early test image](/images/blog/GORSEL.jpg)
+-->
 
 Before jumping into actual ray tracing, I warmed up with rasterization: I printed a white triangle on screen using the classic **edge function** test — for a point to be inside a triangle, it needs to fall on the same side of all three edges.
 
-![rasterized white triangle](triangle-raster.png)
+![rasterized white triangle](/images/blog/renderv1.jpg)
 
 ```cpp
 __device__ float edge_function(const vec3& a, const vec3& b, const vec3& c) {
@@ -86,7 +86,7 @@ Rasterization and ray/path tracing are nothing alike. Instead of projecting tria
 
 So let's say we're sending a ray toward a sphere. What do we actually need to know to figure out if it hits? If you guessed "does the ray's closest approach to the sphere's center stay inside the radius," you're exactly right.
 
-![ray-sphere geometry — discriminant as d vs r](file:///home/boray/Documents/other/Path%20Tracing_sphere.jpg)
+![ray-sphere geometry — discriminant as d vs r](/images/blog/path-tracingsphere.jpg)
 
 Geometrically: find the point on the ray closest to the sphere's center, measure the distance `d` from the center to that point, and compare it to the radius `r`. If `d > r`, the ray misses entirely. If `d ≤ r`, it hits — and the exact hit distance comes from a bit of Pythagoras, since `d`, the radius, and the half-chord length of the intersection form a right triangle.
 
@@ -123,7 +123,7 @@ What's neat is that this is algebraically the same thing as solving the classic 
 
 And what about a triangle? A triangle isn't a volume like a sphere — it's a flat, finite patch floating in space, so a ray can only cross it once (assuming it's not parallel to the triangle's plane). That splits the problem into two steps: first find where the ray hits the *infinite plane* the triangle lies on, then check whether that point actually falls inside the triangle's three edges.
 
-![ray-triangle plane intersection and edge test](file:///home/boray/Documents/other/Path%20Tracing_triangle.jpg)
+![ray-triangle plane intersection and edge test](/images/blog/path-tracingtriangle.jpg)
 
 ```cpp
 __device__ bool hit_triangle(const triangle& tri, const vec3& rayOrig,
@@ -161,7 +161,7 @@ This second step is the same edge function idea from my rasterization test earli
 
 We know how to test rays against geometry, but we still haven't talked about where the rays actually come from. When we send a ray per pixel, that pixel is really a point on an imaginary window in front of the camera, called the **viewport** — and figuring out exactly where that point sits in 3D space is another round of math.
 
-![camera and viewport geometry — u, v, w and pixel(0,0)](camera-viewport.png)
+![camera and viewport geometry — u, v, w and pixel(0,0)](/images/blog/path-tracingviewport.jpg)
 
 The camera first builds its own little coordinate system out of `look_from`, `look_at`, and `up`:
 
@@ -213,5 +213,5 @@ __device__ ray getRay(int i, int j) const {
 
 With that, I can now check off camera setup, analytic sphere/triangle intersection, and getting the first real 3D scene on screen — normal-colored sphere and triangle, floating in front of a sky gradient.
 
-![first real 3D render — sphere and triangle with normal-debug shading](first-3d-render.png)
+![first real 3D render — sphere and triangle with normal-debug shading](/images/blog/renderv2.jpg)
 
