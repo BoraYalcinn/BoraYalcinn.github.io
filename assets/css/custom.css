@@ -189,3 +189,41 @@
   object-fit: cover;
   display: block;
 }
+
+/* --- click to enlarge -------------------------------------------------- */
+/* The wrapper is a <button> for keyboard access (see _markup/render-image.html),
+   so every default button style has to come back off before the image inside it
+   looks like an image again. */
+.img-zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: zoom-in;
+}
+.img-zoom img { display: block; width: 100%; height: auto; }
+.img-zoom:focus-visible {
+  outline: 2px solid var(--retro-primary);
+  outline-offset: 2px;
+}
+
+.lightbox {
+  max-width: 96vw;
+  max-height: 96vh;
+  padding: 0;
+  border: 1px solid var(--retro-border-medium);
+  background: var(--retro-bg);
+  cursor: zoom-out;
+}
+.lightbox img {
+  display: block;
+  max-width: 96vw;
+  /* 96vh minus the border, so a tall image cannot push its own frame off screen. */
+  max-height: calc(96vh - 2px);
+  width: auto;
+  height: auto;
+}
+.lightbox::backdrop { background: rgb(0 0 0 / 0.75); }

@@ -1,0 +1,18 @@
+{{- /*
+  Overrides the theme's partial so the site can ship a script of its own. The
+  first block is the theme's own line, copied verbatim: RetroCSS's JS has to stay
+  or the theme toggle and the mobile nav stop working.
+
+  Second is the image lightbox, which only does anything on pages that contain
+  markdown images, but costs well under a kilobyte to carry everywhere.
+*/ -}}
+{{- with resources.Get "retrocss/retro.min.js" -}}
+  {{- $js := . -}}
+  {{- if hugo.IsProduction }}{{ $js = $js | fingerprint "sha384" }}{{ end -}}
+  <script src="{{ $js.RelPermalink }}"{{ if hugo.IsProduction }} integrity="{{ $js.Data.Integrity }}"{{ end }} defer></script>
+{{- end -}}
+{{- with resources.Get "js/lightbox.js" -}}
+  {{- $js := . -}}
+  {{- if hugo.IsProduction }}{{ $js = $js | minify | fingerprint "sha384" }}{{ end -}}
+  <script src="{{ $js.RelPermalink }}"{{ if hugo.IsProduction }} integrity="{{ $js.Data.Integrity }}"{{ end }} defer></script>
+{{- end -}}

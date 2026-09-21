@@ -30,8 +30,15 @@
 {{- $img := printf `<img src="%s" alt="%s"%s loading="lazy" decoding="async">`
       $src (.PlainText | plainify) $dims
 -}}
+{{- /* The button is what assets/js/lightbox.js listens for. It is a button
+       rather than a div so that opening an image works from the keyboard and is
+       announced as a control; without the script it stays an inert wrapper and
+       the image still shows, so nothing depends on JS to read the post. */ -}}
+{{- $zoom := printf `<button type="button" class="img-zoom" aria-label="Enlarge image: %s">%s</button>`
+      (.PlainText | plainify) $img
+-}}
 {{- if .Title -}}
-<figure>{{ $img | safeHTML }}<figcaption>{{ .Title | markdownify }}</figcaption></figure>
+<figure>{{ $zoom | safeHTML }}<figcaption>{{ .Title | markdownify }}</figcaption></figure>
 {{- else -}}
-{{ $img | safeHTML }}
+{{ $zoom | safeHTML }}
 {{- end -}}
