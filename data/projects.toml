@@ -60,32 +60,32 @@ showForks = [
 
 [[overrides]]
   repo = "RayTracing-PeterShirley"
-  description = "Placeholder — will replace. Ray tracer following Peter Shirley's series."
+  description = "A CPU ray tracer built while working through Peter Shirley's Ray Tracing in One Weekend. Rendering its final scene pinned one core for minutes, which is what sent me to CUDA."
   tags = ["c++", "cmake", "ray-tracing", "graphics"]
 
 [[overrides]]
   repo = "FoveatedRendering-EyeTracking"
-  description = "Placeholder — will replace. Foveated rendering driven by eye tracking."
+  description = "Foveated rendering in Unity: shading the area around the gaze point at full rate and the periphery at less, with the gaze driven by an eye tracker."
   tags = ["c#", "unity", "hlsl", "foveated-rendering", "eye-tracking"]
 
 [[overrides]]
   repo = "CSE_232-TermProject"
-  description = "Placeholder — will replace."
+  description = "A terminal text editor in C for a systems course. Text lives in a doubly linked list, memory is managed by a small garbage collector, and the UI is ncurses."
   tags = ["c", "ncurses", "data-structures", "memory-management"]
 
 [[overrides]]
   repo = "Learning-OpenGL"
-  description = "Placeholder — will replace. OpenGL exercises and notes."
+  description = "Working through modern OpenGL in C++ from the ground up: buffers, shaders, lighting and texturing, one exercise at a time."
   tags = ["c++", "opengl", "glsl", "graphics"]
 
 [[overrides]]
   repo = "AUV"
-  description = "Placeholder — will replace. Autonomous underwater vehicle work."
+  description = "Vision and control code for an autonomous underwater vehicle. OpenCV finds the shapes and colours the vehicle is looking for, and a small decision layer turns that into movement."
   tags = ["python", "opencv", "numpy", "computer-vision"]
 
 [[overrides]]
   repo = "unity-math-playground"
-  description = "Placeholder — will replace. Unity experiments for maths and graphics."
+  description = "A Unity scratchpad for graphics maths: vectors, matrices and transformations, built to be looked at rather than read about."
   tags = ["c#", "unity", "math"]
 
 [[overrides]]

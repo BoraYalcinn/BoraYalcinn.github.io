@@ -30,8 +30,8 @@ capitalizeListTitles = false
   pagerSize = 6
 
 [params]
-  tagline = "computer graphics, engine architecture, game development"
-  description = "Bora Yalçın — CSE undergraduate working in computer graphics, engine architecture and game development. Building BarelyAnEngine and contributing rendering fixes to Godot Engine."
+  tagline = "computer graphics, game development, engine and math level projects"
+  description = "Bora Yalçın, Computer Science undergraduate working in computer graphics, game development, and engine and math level projects, with open source contributions on rendering topics in game engines."
   # Matches the light look of the theme's own demo site.
   accentHue = "primary"
   borderRadius = "0"
@@ -46,7 +46,7 @@ capitalizeListTitles = false
   [params.author]
     name = "Bora Yalçın"
     initials = "BY"
-    bio = "Undergraduate CSE student at Yeditepe University (Istanbul), currently on an Erasmus+ exchange at UTBM, France. Works in computer graphics, engine architecture, and game development. Building BarelyAnEngine (a minimal-dependency C++ software renderer) and contributing rendering fixes to Godot Engine's Compatibility/GLES3 renderer. Also shoots photography and writes shaders on Shadertoy."
+    bio = "Undergraduate Computer Science student at Yeditepe University (Istanbul), currently on an Erasmus+ exchange at UTBM, France. Works in computer graphics, game development, and engine and math level projects, and contributes to open source on rendering topics in game engines. Also shoots photography and writes shaders on Shadertoy."
 
 # Read by layouts/partials/social-links.html. `icon` selects an inline SVG from
 # that partial's icon table — adding a network means adding a path there too.
