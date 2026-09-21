@@ -5,5 +5,5 @@ sitemap:
   disable: true
 ---
 
-Everything on this site is indexed at build time — the search runs entirely in
+Everything on this site is indexed at build time, so the search runs entirely in
 your browser.
