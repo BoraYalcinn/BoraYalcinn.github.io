@@ -64,7 +64,7 @@ capitalizeListTitles = false
   icon = "youtube"
 [[params.social]]
   name = "Behance"
-  url = "https://www.behance.net/USERNAME"
+  url = "https://www.behance.net/borayalcin1"
   icon = "behance"
 [[params.social]]
   name = "Steam"
