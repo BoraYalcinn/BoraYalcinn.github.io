@@ -21,10 +21,10 @@ capitalizeListTitles = false
 [markup.goldmark.extensions.passthrough]
   enable = true
   [markup.goldmark.extensions.passthrough.delimiters]
-    block = [['$$', '$$'], ['\\[', '\\]']]
+    block = [['$$', '$$'], ['\[', '\]']]
     # Inline math is \(...\) only. A bare $...$ pair would also make "$5 to $10"
     # in an ordinary sentence render as a formula.
-    inline = [['\\(', '\\)']]
+    inline = [['\(', '\)']]
 
 [pagination]
   pagerSize = 6
