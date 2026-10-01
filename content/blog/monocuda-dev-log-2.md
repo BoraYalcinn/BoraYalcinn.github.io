@@ -13,7 +13,7 @@ tags:
   - monte-carlo
   - gpu
 cover: /images/blog/render-v5.jpg
-featured: true
+featured: false
 ---
 Hi everyone, welcome to the second dev log for **MonoCUDA**, my single-file CUDA
 path tracer. Last time we covered the essentials: the CUDA side of things, ray
