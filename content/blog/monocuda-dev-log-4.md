@@ -410,9 +410,10 @@ line each stalled warp was sitting on. A line that collects a large share of
 those samples is where your kernel actually spends its life.
 
 In my profile, **86.64% of the stall samples were on a single line**, and that
-line was not in my code. It was inside cuRAND's own header, `curand_kernel.h`.
+line was not in my code. It was inside cuRAND's own header, `curand_kernel.h`,
+in the middle of a matrix multiply called `__curand_matvec_inplace`.
 
-<!-- GÖRSEL: Nsight Source sayfası, curand_kernel.h'deki satırın stall örneklerini topladığı ekran görüntüsü. Dosya henüz sitede yok. -->
+![Nsight Compute's Source page: 86.64% of the warp stall samples sit on one line inside __curand_matvec_inplace in curand_kernel.h, with the kernel at 6.86 ms and 80 registers per thread](/images/blog/nsight-stalls-before.jpg)
 
 Random numbers on a GPU do not work like `rand()` does on a CPU. Every thread
 needs its own generator state, and setting that state up with `curand_init` is
@@ -456,7 +457,7 @@ curandState rngState = rngStates[pixel_index];
 rngStates[pixel_index] = rngState;
 ```
 
-<!-- GÖRSEL: düzeltmeden sonraki Nsight ekran görüntüsü, stall'ların dağılmış hali. Dosya henüz sitede yok. -->
+![the same page after the fix: the cuRAND lines collect no stall samples at all, and the kernel is down to 1.49 ms at 90 registers per thread](/images/blog/nsight-stalls-after.jpg)
 
 **6.84 ms down to 1.49 ms per sample.** About 4.6 times faster, from deleting one
 line and adding a kernel that runs once.
