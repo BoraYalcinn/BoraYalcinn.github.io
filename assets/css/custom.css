@@ -227,3 +227,34 @@
   height: auto;
 }
 .lightbox::backdrop { background: rgb(0 0 0 / 0.75); }
+
+/* --- tables in prose ----------------------------------------------------- */
+/* The framework styles .retro-table, which a table written in markdown is not,
+   so one arrives with no borders at all. Its cell rule is also nowrap, built
+   for data grids rather than for a comparison table whose cells are sentences,
+   so the look is borrowed here and the wrapping left alone. */
+.retro-prose table {
+  width: 100%;
+  margin-bottom: var(--retro-spacing-md);
+  border: 1px solid var(--retro-border-dark);
+  border-collapse: collapse;
+  background-color: var(--retro-table-bg);
+  font-size: var(--retro-font-size-sm);
+}
+.retro-prose th,
+.retro-prose td {
+  padding: 6px 8px;
+  text-align: start;
+  vertical-align: top;
+  border: 1px solid var(--retro-border-medium);
+}
+.retro-prose thead th {
+  background-color: var(--retro-table-header-bg);
+  color: var(--retro-table-header-text);
+  font-weight: bold;
+}
+/* A three-column comparison does not fit a phone, so let it scroll on its own
+   rather than pushing the whole page sideways. */
+@media (max-width: 560px) {
+  .retro-prose table { display: block; overflow-x: auto; }
+}
