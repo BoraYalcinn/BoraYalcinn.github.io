@@ -13,7 +13,7 @@ tags:
   - monte-carlo
   - gpu
 cover: /images/blog/render-v10.jpg
-featured: true
+featured: false
 ---
 Hi everyone. I know it has been a while since the last dev log and I am sorry
 about that. School has been busy and I could not find the time to get everything
