@@ -1,0 +1,31 @@
+<%
+// When the page names a repo, pull that repo's live facts out of the same list
+// the section page uses, so stars, language and links never drift from GitHub
+// or have to be retyped in front matter.
+const repo = page.repo ? site.projects.all.find(r => r.name === page.repo) : null;
+%>
+<div class="card post-full">
+    <span class="post-title article-title"><%= page.title %></span>
+
+    <div class="post-meta">
+        <% if (page.date) { %><%= date(page.date, 'D MMMM YYYY') %><% } %>
+        <% if (repo) { %>
+            <% if (repo.language) { %>&middot; <span class="badge"><%= repo.language %></span><% } %>
+            <% if (repo.stars > 0) { %><span class="badge">&#9733; <%= repo.stars %></span><% } %>
+            <% if (repo.archived) { %><span class="badge">archived</span><% } %>
+        <% } %>
+        <% if (page.tags && page.tags.length) { %>
+            &middot; <%- tag_links(page.tags) %>
+        <% } %>
+    </div>
+
+    <% if (page.description) { %><p class="post-excerpt post-lede"><%= page.description %></p><% } %>
+
+    <% if (repo) { %>
+    <p class="repo-links"><a class="button rm-link" href="<%= repo.url %>" rel="noopener" target="_blank"><span class="read-more">View on GitHub</span></a></p>
+    <% } %>
+
+    <div class="post-content"><%- page.content %></div>
+</div>
+
+<%- partial('_partial/comments') %>

@@ -1,0 +1,100 @@
+<%
+// The home page is a front page, not a second copy of /blog/: one featured
+// post, the featured repos, and the newest shaders. The full feed lives at
+// /blog/ and the compact index at /archives/.
+const posts = site.posts.sort('date', -1).toArray();
+const featured = posts.find(p => p.featured) || posts[0];
+const repos = site.projects.featured;
+const shaders = site.pages.filter(p => p.layout === 'shader').sort('date', -1).toArray().slice(0, 2);
+const games = site.games;
+%>
+
+<% if (featured) { %>
+<h2 class="post-title section-heading">Latest post</h2>
+<article class="card post-item">
+    <% if (featured.cover) { %>
+    <div class="post-cover">
+        <a href="<%- url_for(featured.path) %>"><img src="<%- url_for(featured.cover) %>" alt="<%= featured.title %>"></a>
+    </div>
+    <% } %>
+    <div class="post-info">
+        <span class="post-title"><%= featured.title %></span>
+        <div class="post-meta">
+            <%= date(featured.date, 'YYYY-MM-DD') %>
+            <% if (featured.tags && featured.tags.length) { %>| <%- tag_links(featured.tags) %><% } %>
+        </div>
+        <div class="post-excerpt">
+            <%= featured.description || truncate(strip_html(featured.content), { length: 220, omission: '...' }) %>
+        </div>
+        <a href="<%- url_for(featured.path) %>" class="button rm-link"><span class="read-more">Read More...</span></a>
+    </div>
+</article>
+<% } %>
+
+<% if (repos.length) { %>
+<h2 class="post-title section-heading">Featured projects</h2>
+<% repos.forEach(function (r) { %>
+<article class="card post-item">
+    <% if (r.cover) { %>
+    <div class="post-cover">
+        <a href="<%= r.page ? url_for(r.page) : r.url %>"><img src="<%= url_for(r.cover) %>" alt="<%= r.title %>"></a>
+    </div>
+    <% } %>
+    <div class="post-info">
+        <span class="post-title"><%= r.title %></span>
+        <div class="post-meta">
+            <% if (r.language) { %><span class="badge"><%= r.language %></span><% } %>
+            <% if (r.stars > 0) { %><span class="badge">&#9733; <%= r.stars %></span><% } %>
+            <%- repo_tags(r.tags, r.language) %>
+        </div>
+        <% if (r.description) { %><div class="post-excerpt"><%= r.description %></div><% } %>
+        <div class="repo-links">
+            <% if (r.page) { %><a class="button rm-link" href="<%= url_for(r.page) %>"><span class="read-more">Read More...</span></a><% } %>
+            <a class="button rm-link" href="<%= r.url %>" rel="noopener" target="_blank"><span class="read-more">GitHub</span></a>
+        </div>
+    </div>
+</article>
+<% }); %>
+<% } %>
+
+<%# Fetched from RAWG at build time by scripts/games.js. Absent when no API key
+    is configured or the call failed, so nothing here assumes it exists. %>
+<% if (games.list.length) { %>
+<h2 class="post-title section-heading">Releasing in <%= games.month %></h2>
+<div class="card game-card">
+    <div class="game-grid">
+        <% games.list.forEach(function (g) { %>
+        <a class="game" href="<%= g.url %>" rel="noopener" target="_blank">
+            <span class="game-art"<%- g.image ? ` style="background-image:url('${g.image}')"` : '' %>>
+                <% if (g.metacritic) { %><span class="game-score"><%= g.metacritic %></span><% } %>
+            </span>
+            <span class="game-name"><%= g.name %></span>
+            <span class="game-meta">
+                <%= g.released %><% if (g.platforms.length) { %> &middot; <%= g.platforms.join(', ') %><% } %>
+            </span>
+        </a>
+        <% }); %>
+    </div>
+    <p class="game-credit">Release dates from <a href="https://rawg.io/" rel="noopener" target="_blank">RAWG</a>.</p>
+</div>
+<% } %>
+
+<% if (shaders.length) { %>
+<h2 class="post-title section-heading">Latest shaders</h2>
+<% shaders.forEach(function (s) { %>
+<article class="card post-item">
+    <div class="post-info">
+        <span class="post-title"><a class="plain-link" href="<%= url_for(s.path) %>"><%= s.title %></a></span>
+        <div class="post-meta">
+            <%= date(s.date, 'YYYY-MM-DD') %>
+            <% if (s.tags && s.tags.length) { %>| <%- tag_links(s.tags) %><% } %>
+        </div>
+        <% if (s.shaderId) { %>
+        <div class="shader-preview"><%- shadertoy({ id: s.shaderId, title: s.title, video: s.shaderVideo, cover: s.cover, embed: false }) %></div>
+        <% } %>
+        <% if (s.description) { %><div class="post-excerpt"><%= s.description %></div><% } %>
+        <a href="<%= url_for(s.path) %>" class="button rm-link"><span class="read-more">Read More...</span></a>
+    </div>
+</article>
+<% }); %>
+<% } %>

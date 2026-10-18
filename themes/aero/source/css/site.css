@@ -1,0 +1,327 @@
+/* Only what this site adds on top of the theme: the sidebar tag list and the
+   pieces the theme has no markup for (projects, shaders, search, comments).
+   Everything reuses the theme's own variables, so it stays in step if the
+   colours in _variables.scss change. */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- navigation --------------------------------------------------------- */
+
+/* The theme indents the tab bar 360px and sizes the tabs for the three it
+   ships with. This site has six, and the bar clips whatever runs past its
+   rounded edge, so the indent shrinks and the tabs tighten up. */
+nav.button-bar {
+  margin-left: 240px;
+  padding: 0 10px;
+}
+
+.nav-links li a {
+  padding: 0 12px;
+  white-space: nowrap;
+}
+
+.nav-links .icon { width: 20px; }
+
+/* Between the phone breakpoint the theme already has and a full-width desktop
+   there is still not enough room for the indent. */
+@media screen and (max-width: 1024px) {
+  nav.button-bar { margin-left: 0; left: 0; }
+}
+
+/* Section headings sit on the glass, so they borrow .post-title's white halo
+   and only need their own spacing. */
+.section-heading {
+  display: block;
+  font-size: 24px;
+  margin: 24px 0 8px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 8px;
+  margin: 2px 4px 2px 0;
+  font-size: 12px;
+  border-radius: 10px;
+  color: var(--black-main);
+  text-decoration: none;
+  text-shadow: 0 1px 0 var(--white-main);
+  background: var(--aero-grad);
+  box-shadow:
+    inset 0 0 0 1px var(--white-main),
+    0 0 0 0.5px var(--black-main);
+}
+
+a.badge:hover {
+  box-shadow:
+    inset 0 0 0 1px var(--highlight-color),
+    0 0 0 0.5px var(--black-main),
+    0 0 4px var(--highlight-color);
+}
+
+/* --- sidebar widgets ---------------------------------------------------- */
+
+.widget-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  font-weight: 600;
+  background: var(--aero-grad);
+  box-shadow: inset 0 0 0 1px var(--white-main);
+  text-shadow: 0 1px 0 var(--white-main);
+}
+
+.widget-title-link {
+  font-weight: normal;
+  font-size: 13px;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.widget-title-link:hover { text-decoration: underline; }
+
+.widget-body {
+  margin: 10px;
+  padding: 8px 10px;
+  background-color: var(--white-main);
+  box-shadow: 0 0 0 0.5px var(--black-main), 0 0 0 1.5px var(--white-main);
+  font-size: 14px;
+}
+
+.sidebar-tag {
+  display: inline-block;
+  margin: 0 8px 4px 0;
+  color: var(--primary-color);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.sidebar-tag:hover { border-bottom-color: var(--primary-color); }
+
+/* The theme's own profile widget expects <img> social icons; these are inline
+   SVG, so they take the surrounding colour rather than a file. */
+.profile-icon { width: 100%; height: auto; color: var(--black-main); }
+
+/* .profile keeps upstream's geometry (80px tall, padded clear of the avatar)
+   so the photo sits exactly where the theme puts it; only the name lives
+   there now. The buttons go on this row instead, across the full width of the
+   card, because five of them never fit beside the photo. */
+.profile-social {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px 6px;
+}
+
+.profile-link {
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 7px;
+  margin: 3px;
+  border-radius: 17px;
+}
+
+.profile-link::after { border-radius: 17px; }
+
+/* --- projects ----------------------------------------------------------- */
+
+.repo-links { display: flex; gap: 10px; justify-content: flex-end; margin-top: auto; }
+.repo-links .rm-link { align-self: auto; margin-bottom: -15px; }
+
+.repo-item { padding: 8px 0; border-bottom: 1px solid rgb(0 0 0 / 0.08); }
+.repo-item:last-child { border-bottom: none; }
+.repo-description { margin: 4px 0 0; font-size: 14px; }
+
+/* --- shaders ------------------------------------------------------------ */
+
+.shadertoy { margin: 0 0 16px; }
+
+/* The 16:9 box is what keeps the embed from forcing the page wide on a phone;
+   Shadertoy's iframe has no intrinsic size of its own. */
+.shadertoy-frame {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #0d1117;
+  box-shadow: 0 0 0 0.5px var(--black-main), 0 0 0 1.5px var(--white-main);
+}
+
+.shadertoy-frame iframe,
+.shadertoy-frame video,
+.shadertoy-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+}
+
+.shadertoy-poster-blank {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8b949e;
+  font-family: ui-monospace, monospace;
+}
+
+.shadertoy-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32px;
+  color: var(--white-main);
+  text-shadow: 0 0 12px rgb(0 0 0 / 0.8);
+}
+
+.shadertoy figcaption { padding: 6px 2px; font-size: 13px; }
+.shadertoy figcaption a { color: var(--primary-color); }
+
+/* --- tags and categories pages ------------------------------------------ */
+
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 4px; }
+.tag-count { opacity: 0.6; font-size: 11px; }
+.tag-none-link.is-plain { color: inherit; opacity: 0.7; }
+
+/* --- search ------------------------------------------------------------- */
+
+.search-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  font: inherit;
+  border: none;
+  background: #fff;
+  box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.3), 0 0 0 1px var(--black-main);
+}
+
+.search-input:focus { outline: 2px solid var(--highlight-color); outline-offset: 1px; }
+.search-status { font-size: 13px; opacity: 0.7; }
+.search-results { list-style: none; padding: 0; margin: 0; }
+.search-result { padding: 8px 0; border-bottom: 1px solid rgb(0 0 0 / 0.08); }
+.search-result:last-child { border-bottom: none; }
+.search-snippet { margin: 4px 0 0; font-size: 14px; opacity: 0.85; }
+
+/* --- comments ----------------------------------------------------------- */
+
+.comments-card { margin-top: 20px; }
+
+/* --- upcoming games ----------------------------------------------------- */
+
+.game-card { padding: 10px; border-radius: 3px; }
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  padding: 10px;
+  background-color: var(--white-main);
+  box-shadow: 0 0 0 0.5px var(--black-main), 0 0 0 1.5px var(--white-main);
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-decoration: none;
+  color: var(--black-main);
+}
+
+.game-art {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: #0d1117 center / cover no-repeat;
+  box-shadow: 0 0 0 0.5px var(--black-main), inset 0 0 0 1px rgb(255 255 255 / 0.25);
+}
+
+.game:hover .game-art { box-shadow: 0 0 0 0.5px var(--black-main), 0 0 6px var(--highlight-color); }
+
+.game-score {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  min-width: 20px;
+  padding: 0 4px;
+  font-size: 11px;
+  text-align: center;
+  border-radius: 8px;
+  color: var(--black-main);
+  background: var(--aero-grad);
+  box-shadow: inset 0 0 0 1px var(--white-main), 0 0 0 0.5px var(--black-main);
+}
+
+.game-name { font-size: 13px; font-weight: 600; line-height: 1.25; }
+.game:hover .game-name { text-decoration: underline; }
+.game-meta { font-size: 11px; opacity: 0.7; line-height: 1.25; }
+.game-credit { margin: 8px 2px 2px; font-size: 12px; }
+.game-credit a { color: var(--primary-color); }
+
+/* --- zoomable images ---------------------------------------------------- */
+
+.img-zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: zoom-in;
+}
+
+.img-zoom img { display: block; width: 100%; height: auto; }
+
+.img-zoom:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.lightbox {
+  max-width: 96vw;
+  max-height: 96vh;
+  padding: 0;
+  border: 1px solid var(--black-main);
+  background: var(--white-main);
+  cursor: zoom-out;
+}
+
+.lightbox img {
+  display: block;
+  max-width: 96vw;
+  /* 96vh minus the border, so a tall image cannot push its own frame off screen. */
+  max-height: calc(96vh - 2px);
+  width: auto;
+  height: auto;
+}
+
+.lightbox::backdrop { background: rgb(0 0 0 / 0.75); }
+
+/* --- long-form safety nets ---------------------------------------------- */
+
+/* A display equation, a wide table or a long code line should scroll inside
+   the column rather than widen the page on a phone. */
+.post-content .katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+.post-content img { max-width: 100%; height: auto; }
+.post-content pre { overflow-x: auto; }
+.post-content table { display: block; overflow-x: auto; }

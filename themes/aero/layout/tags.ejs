@@ -1,0 +1,11 @@
+<div class="card post-full">
+    <span class="post-title article-title"><%= page.title %></span>
+    <% if (page.description) { %><p class="post-excerpt post-lede"><%= page.description %></p><% } %>
+    <div class="post-content">
+        <div class="tag-cloud">
+            <% site.allTags.forEach(function (tag) { %>
+            <a class="badge tag-badge" href="<%= url_for(config.tag_dir + '/' + tag.slug + '/') %>"><%= tag.name %> <span class="tag-count"><%= tag.count %></span></a>
+            <% }); %>
+        </div>
+    </div>
+</div>

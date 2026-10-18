@@ -1,0 +1,29 @@
+<div class="card post-full">
+    <span class="post-title article-title"><%= page.title %></span>
+
+    <div class="post-meta">
+        <% if (page.date) { %><%= date(page.date, 'D MMMM YYYY') %><% } %>
+        <% if (page.tags && page.tags.length) { %>
+            &middot; <%- tag_links(page.tags) %>
+        <% } %>
+    </div>
+
+    <% if (page.description) { %><p class="post-excerpt post-lede"><%= page.description %></p><% } %>
+
+    <%# The page's own shader, above the write-up. Entering an id in the CMS is
+        all a new shader page needs. %>
+    <% if (page.shaderId) { %>
+    <%- shadertoy({
+          id: page.shaderId,
+          title: page.title,
+          video: page.shaderVideo,
+          cover: page.cover,
+          embed: page.shaderEmbed,
+          paused: page.shaderPaused
+        }) %>
+    <% } %>
+
+    <div class="post-content"><%- page.content %></div>
+</div>
+
+<%- partial('_partial/comments') %>

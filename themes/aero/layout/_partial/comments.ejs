@@ -1,0 +1,20 @@
+<% const c = theme.comments; %>
+<% if (c && c.enable) { %>
+<div class="card post-full comments-card">
+    <span class="post-title article-title">Comments</span>
+    <%# js/site.js reads these and injects the widget, so it also comes back
+        after a pjax navigation. %>
+    <div class="post-content comments-body" id="comments-body"
+         data-giscus-repo="<%= c.repo %>"
+         data-giscus-repo-id="<%= c.repoId %>"
+         data-giscus-category="<%= c.category %>"
+         data-giscus-category-id="<%= c.categoryId %>"
+         data-giscus-mapping="<%= c.mapping %>"
+         data-giscus-strict="0"
+         data-giscus-reactions-enabled="1"
+         data-giscus-emit-metadata="0"
+         data-giscus-input-position="bottom"
+         data-giscus-theme="<%= c.theme %>"
+         data-giscus-lang="en"></div>
+</div>
+<% } %>

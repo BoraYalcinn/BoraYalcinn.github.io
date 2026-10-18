@@ -1,0 +1,148 @@
+# Converted from the Hugo site's data/projects.toml. Same keys, same meaning:
+# the repo list is fetched live from GitHub at build time and this is the
+# manual layer merged on top of it.
+user: BoraYalcinn
+featured:
+  - MonoCUDA-PT
+  - CezveRender
+hidden:
+  - BoraYalcinn
+  - BoraYalcinn.github.io
+showForks:
+  - godot
+overrides:
+  - repo: CezveRender
+    title: CezveRender
+    description: >-
+      A real-time 3D renderer written from scratch in Java, on OpenGL 3.3 and
+      LWJGL. Shadow mapping, Phong lighting and a live ImGui scene editor.
+  - repo: godot
+    title: Godot Engine (contributions)
+    description: Rendering fixes to the Compatibility/GLES3 renderer, upstream.
+    tags:
+      - c++
+      - godot
+      - opengl
+      - glsl
+      - game-engine
+  - repo: foveated-path-tracing
+    tags:
+      - c++
+      - hlsl
+      - directx12
+      - capsaicin
+      - path-tracing
+      - foveated-rendering
+  - repo: BarelyAnEngine
+    tags:
+      - c++
+      - sdl2
+      - cmake
+      - software-rendering
+      - graphics
+  - repo: turkcell-puan-cuzdani
+    tags:
+      - java
+      - spring-boot
+      - oracle
+      - redis
+      - docker
+      - microservices
+  - repo: RayTracing-PeterShirley
+    description: >-
+      A CPU ray tracer built while working through Peter Shirley's Ray Tracing
+      in One Weekend. Rendering its final scene pinned one core for minutes,
+      which is what sent me to CUDA.
+    tags:
+      - c++
+      - cmake
+      - ray-tracing
+      - graphics
+  - repo: FoveatedRendering-EyeTracking
+    description: >-
+      Foveated rendering in Unity: shading the area around the gaze point at
+      full rate and the periphery at less, with the gaze driven by an eye
+      tracker.
+    tags:
+      - c#
+      - unity
+      - hlsl
+      - foveated-rendering
+      - eye-tracking
+  - repo: CSE_232-TermProject
+    description: >-
+      A terminal text editor in C for a systems course. Text lives in a doubly
+      linked list, memory is managed by a small garbage collector, and the UI is
+      ncurses.
+    tags:
+      - c
+      - ncurses
+      - data-structures
+      - memory-management
+  - repo: Learning-OpenGL
+    description: >-
+      Working through modern OpenGL in C++ from the ground up: buffers, shaders,
+      lighting and texturing, one exercise at a time.
+    tags:
+      - c++
+      - opengl
+      - glsl
+      - graphics
+  - repo: AUV
+    description: >-
+      Vision and control code for an autonomous underwater vehicle. OpenCV finds
+      the shapes and colours the vehicle is looking for, and a small decision
+      layer turns that into movement.
+    tags:
+      - python
+      - opencv
+      - numpy
+      - computer-vision
+  - repo: unity-math-playground
+    description: >-
+      A Unity scratchpad for graphics maths: vectors, matrices and
+      transformations, built to be looked at rather than read about.
+    tags:
+      - c#
+      - unity
+      - math
+  - repo: Procedural-Shader-Terrain
+    tags:
+      - c
+      - raylib
+      - glsl
+      - procedural-generation
+  - repo: Shaders-Raylib
+    tags:
+      - c
+      - raylib
+      - glsl
+      - shaders
+  - repo: Snake-Game-Raylib
+    tags:
+      - c++
+      - raylib
+      - game
+  - repo: Tetris-Game-Unity
+    tags:
+      - c#
+      - unity
+      - game
+  - repo: J-BattleCity
+    tags:
+      - java
+      - swing
+      - game
+  - repo: CSE_211_PROJECT_18
+    tags:
+      - c++
+      - data-structures
+      - graphs
+      - doxygen
+  - repo: Inventory-Management-System
+    tags:
+      - java
+      - swing
+  - repo: Basic-Password-Generator
+    tags:
+      - java

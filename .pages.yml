@@ -3,13 +3,21 @@
 #
 # Every field below maps to a real front-matter key the layouts read. Adding a
 # field here does not make the site use it; check the layouts first.
+#
+# Two things changed in the move from Hugo to Hexo:
+#   - "Draft" became "Published", because Hexo hides a post with
+#     `published: false` rather than with `draft: true`. The tick means the
+#     opposite of what it used to.
+#   - Project and shader pages are folders now (source/shaders/<name>/index.md),
+#     which is how Hexo gives a page its own URL, so each collection writes into
+#     a subfolder and skips the section's own index.md.
 
 media:
-  # Uploads land in static/images/ and are referenced as /images/... , which is
-  # exactly how Hugo serves the static folder. Video lives here too — one
-  # upload source keeps the CMS simple, at the cost of a folder named "images"
-  # holding the odd .webm.
-  input: static/images
+  # Uploads land in source/images/ and are referenced as /images/... , which is
+  # how Hexo serves anything under source that it does not render. Video lives
+  # here too: one upload source keeps the CMS simple, at the cost of a folder
+  # named "images" holding the odd .webm.
+  input: source/images
   output: /images
   extensions: [png, jpg, jpeg, gif, webp, svg, webm, mp4]
   rename: safe
@@ -18,7 +26,7 @@ content:
   - name: blog
     label: Blog posts
     type: collection
-    path: content/blog
+    path: source/_posts
     format: yaml-frontmatter
     subfolders: false
     filename: "{fields.title}.md"
@@ -26,7 +34,7 @@ content:
       primary: title
       sort: date
       order: desc
-      fields: [title, date, draft, categories]
+      fields: [title, date, published, categories]
     fields:
       - name: title
         label: Title
@@ -37,11 +45,11 @@ content:
         type: date
         options:
           format: yyyy-MM-dd
-      - name: draft
-        label: Draft
+      - name: published
+        label: Published
         type: boolean
-        default: true
-        description: "Drafts stay off the published site. Untick to publish."
+        default: false
+        description: "Unticked posts stay off the published site. Tick to publish."
       - name: description
         label: Summary
         type: text
@@ -76,29 +84,35 @@ content:
   - name: shaders
     label: Shaders
     type: collection
-    path: content/shaders
+    path: source/shaders
     format: yaml-frontmatter
-    subfolders: false
-    filename: "{fields.title}.md"
+    subfolders: true
+    filename: "{fields.title}/index.md"
+    exclude: ["index.md"]
     view:
       primary: title
       sort: date
       order: desc
-      fields: [title, date, draft, shaderId]
+      fields: [title, date, published, shaderId]
     fields:
       - name: title
         label: Title
         type: string
         required: true
+      - name: layout
+        label: Layout
+        type: string
+        default: shader
+        description: "Leave as 'shader'. This is what tells Hexo to use the shader page template."
       - name: date
         label: Date
         type: date
         options:
           format: yyyy-MM-dd
-      - name: draft
-        label: Draft
+      - name: published
+        label: Published
         type: boolean
-        default: true
+        default: false
       - name: description
         label: Summary
         type: text
@@ -145,30 +159,35 @@ content:
   - name: projects
     label: Project write-ups
     type: collection
-    path: content/projects
+    path: source/projects
     format: yaml-frontmatter
-    subfolders: false
-    filename: "{fields.title}.md"
-    exclude: ["_index.md"]
+    subfolders: true
+    filename: "{fields.title}/index.md"
+    exclude: ["index.md"]
     view:
       primary: title
       sort: date
       order: desc
-      fields: [title, date, draft, repo]
+      fields: [title, date, published, repo]
     fields:
       - name: title
         label: Title
         type: string
         required: true
+      - name: layout
+        label: Layout
+        type: string
+        default: project
+        description: "Leave as 'project'. This is what tells Hexo to use the project page template."
       - name: date
         label: Date
         type: date
         options:
           format: yyyy-MM-dd
-      - name: draft
-        label: Draft
+      - name: published
+        label: Published
         type: boolean
-        default: true
+        default: false
       - name: repo
         label: GitHub repo name
         type: string
@@ -196,26 +215,34 @@ content:
   - name: home
     label: Home page (about me)
     type: file
-    path: content/_index.md
+    path: source/index.md
     format: yaml-frontmatter
     fields:
       - name: title
         label: Site title
         type: string
+      - name: layout
+        label: Layout
+        type: string
+        default: home
       - name: body
         label: About me
         type: text
-        description: "Shows on the home page, between the description and the post feed."
+        description: "Shows on the home page, above the latest post."
 
   - name: projects_index
     label: Projects page intro
     type: file
-    path: content/projects/_index.md
+    path: source/projects/index.md
     format: yaml-frontmatter
     fields:
       - name: title
         label: Title
         type: string
+      - name: layout
+        label: Layout
+        type: string
+        default: projects
       - name: description
         label: Summary
         type: text
@@ -226,12 +253,16 @@ content:
   - name: shaders_index
     label: Shaders page intro
     type: file
-    path: content/shaders/_index.md
+    path: source/shaders/index.md
     format: yaml-frontmatter
     fields:
       - name: title
         label: Title
         type: string
+      - name: layout
+        label: Layout
+        type: string
+        default: shaders
       - name: description
         label: Summary
         type: text
@@ -242,8 +273,8 @@ content:
   - name: featured_repos
     label: Featured projects & repo list
     type: file
-    path: data/projects.toml
-    format: toml
+    path: source/_data/projects.yml
+    format: yaml
     fields:
       - name: user
         label: GitHub username

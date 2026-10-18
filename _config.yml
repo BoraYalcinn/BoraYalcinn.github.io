@@ -1,0 +1,144 @@
+# Hexo configuration for borayalcinn.github.io, migrated from Hugo.
+# URLs are deliberately identical to the Hugo site's: giscus maps a discussion
+# to a page by pathname, so a changed URL silently orphans that page's comments.
+
+title: Bora Yalçın
+# Shown in the header card, in the theme's own one-line slot.
+subtitle: '"Before the light, there was structure."'
+# What the home page's browser title and search result say. Kept separate from
+# the subtitle: a quotation reads well on the page but tells a search engine
+# nothing about what the site is.
+tagline: computer graphics, game development, engine and math level projects
+description: >
+  Bora Yalçın, Computer Science undergraduate working in computer graphics,
+  game development, and engine and math level projects, with open source
+  contributions on rendering topics in game engines.
+keywords:
+author: Bora Yalçın
+language: en
+timezone: Europe/Istanbul
+
+url: https://borayalcinn.github.io
+permalink: blog/:name/
+permalink_defaults:
+pretty_urls:
+  trailing_index: false
+  trailing_html: false
+
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+new_post_name: :title.md
+default_layout: post
+titlecase: false
+external_link:
+  enable: true
+  field: site
+  exclude:
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+
+highlight:
+  enable: true
+  hljs: true
+  line_number: false
+  auto_detect: false
+prismjs:
+  enable: false
+
+# The post feed is the home page, the way the theme is built. The "about me"
+# text the Hugo home page carried now lives at /about/, which is the page the
+# theme's own nav links to.
+index_generator:
+  path: ''
+  # The home page is a hand-built front page, not a paginated feed, so there is
+  # no /page/2/ to generate. The full feed is /blog/.
+  per_page: 0
+  order_by: -date
+
+archive_generator:
+  per_page: 0
+  yearly: true
+  monthly: false
+  daily: false
+
+tag_generator:
+  per_page: 10
+
+default_category: uncategorized
+# Hugo lowercased taxonomy terms in URLs, so /categories/dev/ is the address
+# that exists in the wild; Hexo would otherwise serve /categories/Dev/.
+category_map:
+  Dev: dev
+  Photography: photography
+  Life: life
+  Cinema: cinema
+  Video Games: video-games
+tag_map:
+
+meta_generator: true
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+updated_option: 'mtime'
+
+per_page: 6
+pagination_dir: page
+
+theme: aero
+
+deploy:
+  type: ''
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  content: true
+
+sitemap:
+  path: sitemap.xml
+
+# Math is rendered at build time by KaTeX, as it was under Hugo, so no script
+# runs in the browser.
+#
+# One difference from the Hugo setup: there, inline math was \(...\) only,
+# because a bare $...$ pair would turn "$5 to $10" in an ordinary sentence into
+# a formula. This plugin also treats $...$ as inline math and offers no switch
+# for it, so a post that writes about money has to escape the sign as \$.
+markdown:
+  preset: commonmark
+  render:
+    html: true
+    xhtmlOut: false
+    breaks: false
+    linkify: true
+    typographer: false
+  enable_rules:
+    - table
+    - strikethrough
+  plugins:
+    - name: markdown-it-footnote
+      enable: true
+    - name: '@traptitech/markdown-it-katex'
+      enable: true
+      options:
+        throwOnError: false
+        delimiters:
+          - left: '$$'
+            right: '$$'
+            display: true
+          - left: '\['
+            right: '\]'
+            display: true
+          - left: '\('
+            right: '\)'
+            display: false

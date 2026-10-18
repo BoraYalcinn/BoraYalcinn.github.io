@@ -1,0 +1,38 @@
+<%# The full post list, as cards with a cover and a summary, the way the Hugo
+    site's /blog/ read. /archives/ is the compact year-by-year index instead,
+    so the two pages do different jobs. %>
+<div class="card post-full">
+    <span class="post-title article-title"><%= page.title %></span>
+    <% if (page.description) { %><p class="post-excerpt post-lede"><%= page.description %></p><% } %>
+</div>
+
+<section class="post-list">
+    <% site.posts.sort('date', -1).each(function (post) { %>
+    <article class="card post-item">
+        <% if (post.cover) { %>
+            <div class="post-cover">
+                <a href="<%- url_for(post.path) %>">
+                    <img src="<%- url_for(post.cover) %>" alt="<%= post.title %>">
+                </a>
+            </div>
+        <% } %>
+        <div class="post-info">
+            <span class="post-title">
+                <%= post.title %>
+            </span>
+            <div class="post-meta">
+                <%= date(post.date, 'YYYY-MM-DD' ) %>
+                <% if (post.tags && post.tags.length) { %>
+                    | <%- tag_links(post.tags) %>
+                <% } %>
+            </div>
+            <div class="post-excerpt">
+                <%= post.description || truncate(strip_html(post.excerpt || post.content), {length: 150, omission: '...'}) %>
+            </div>
+            <a href="<%- url_for(post.path) %>" class="button rm-link">
+                <span class="read-more">Read More...</span>
+            </a>
+        </div>
+    </article>
+    <% }) %>
+</section>

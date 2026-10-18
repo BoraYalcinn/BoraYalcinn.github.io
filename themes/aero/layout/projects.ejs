@@ -1,0 +1,55 @@
+<% const repos = site.projects; %>
+<div class="card post-full">
+    <span class="post-title article-title"><%= page.title %></span>
+    <div class="post-content">
+        <%- page.content %>
+    </div>
+</div>
+
+<% if (repos.featured.length) { %>
+<h2 class="post-title section-heading">Featured</h2>
+<% repos.featured.forEach(function (r) { %>
+<article class="card post-item">
+    <% if (r.cover) { %>
+    <div class="post-cover">
+        <a href="<%= r.page ? url_for(r.page) : r.url %>"><img src="<%= url_for(r.cover) %>" alt="<%= r.title %>"></a>
+    </div>
+    <% } %>
+    <div class="post-info">
+        <span class="post-title"><%= r.title %></span>
+        <div class="post-meta">
+            <% if (r.language) { %><span class="badge"><%= r.language %></span><% } %>
+            <% if (r.stars > 0) { %><span class="badge">&#9733; <%= r.stars %></span><% } %>
+            <% if (r.archived) { %><span class="badge">archived</span><% } %>
+            <%- repo_tags(r.tags, r.language) %>
+        </div>
+        <% if (r.description) { %><div class="post-excerpt"><%= r.description %></div><% } %>
+        <div class="repo-links">
+            <% if (r.page) { %><a class="button rm-link" href="<%= url_for(r.page) %>"><span class="read-more">Read More...</span></a><% } %>
+            <a class="button rm-link" href="<%= r.url %>" rel="noopener" target="_blank"><span class="read-more">GitHub</span></a>
+        </div>
+    </div>
+</article>
+<% }); %>
+<% } %>
+
+<% if (repos.rest.length) { %>
+<h2 class="post-title section-heading">Everything else</h2>
+<div class="card year-group">
+    <div class="archive-list">
+        <% repos.rest.forEach(function (r) { %>
+        <div class="archive-item repo-item">
+            <a class="archive-title" href="<%= r.page ? url_for(r.page) : r.url %>"<%- r.page ? '' : ' rel="noopener" target="_blank"' %>><%= r.title %></a>
+            <% if (r.stars > 0) { %><span class="badge">&#9733; <%= r.stars %></span><% } %>
+            <% if (r.language) { %><span class="badge"><%= r.language %></span><% } %>
+            <%- repo_tags(r.tags, r.language) %>
+            <% if (r.description) { %><p class="repo-description"><%= r.description %></p><% } %>
+        </div>
+        <% }); %>
+    </div>
+</div>
+<% } %>
+
+<% if (!repos.all.length) { %>
+<div class="card year-group"><div class="archive-list"><p>The repo list could not be built for this run.</p></div></div>
+<% } %>

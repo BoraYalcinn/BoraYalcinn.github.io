@@ -1,4 +1,9 @@
-# Hugo build output and asset cache
-/public/
-/resources/_gen/
-.hugo_build.lock
+node_modules/
+public/
+db.json
+.deploy*/
+npm-debug.log*
+
+# Compiled from themes/aero/source/css/_partial/*.scss by `npm run build:css`,
+# which the deploy workflow runs; committing it would let it go stale.
+themes/aero/source/css/style.css

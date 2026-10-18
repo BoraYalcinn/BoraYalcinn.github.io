@@ -1,0 +1,16 @@
+<h1 class="post-title section-heading">Tagged &ldquo;<%= page.tag %>&rdquo;</h1>
+<section class="post-list">
+    <% page.posts.each(function (post) { %>
+    <article class="card post-item">
+        <div class="post-info">
+            <span class="post-title"><a class="plain-link" href="<%= url_for(post.path) %>"><%= post.title %></a></span>
+            <div class="post-meta"><%= date(post.date, 'D MMMM YYYY') %></div>
+            <% if (post.description) { %><div class="post-excerpt"><%= post.description %></div><% } %>
+        </div>
+    </article>
+    <% }); %>
+</section>
+
+<nav class="page-nav">
+    <%- paginator({ prev_text: '<', next_text: '>' }) %>
+</nav>

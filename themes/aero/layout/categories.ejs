@@ -1,0 +1,11 @@
+<div class="card post-full">
+    <span class="post-title article-title"><%= page.title %></span>
+    <% if (page.description) { %><p class="post-excerpt post-lede"><%= page.description %></p><% } %>
+    <div class="post-content">
+        <div class="tag-cloud">
+            <% site.categories.sort('name').each(function (cat) { %>
+            <a class="badge tag-badge" href="<%= url_for(cat.path) %>"><%= cat.name %> <span class="tag-count"><%= cat.length %></span></a>
+            <% }); %>
+        </div>
+    </div>
+</div>

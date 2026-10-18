@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'en' %>">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <%- partial('_partial/head') %>
+    <%- css('css/style.css') %>
+    <%- css('css/site.css') %>
+    <% if (theme.favicon.enable) { %>
+        <% if (theme.favicon.icon) { %>
+            <link rel="icon" href="<%= url_for(theme.favicon.icon) %>">
+        <% } %>
+    <% } %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.9.1/fonts/remixicon.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css">
+    <!-- KaTeX runs at build time; only its stylesheet is needed in the browser. -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <!-- header -->
+        <%- partial('_partial/header') %>
+
+        <div class="button mobile-menu-btn" id="mobile-menu-btn">
+            <span class="menu-icon ri-menu-fill"></span>
+        </div>
+
+            <div class="main-layout">
+                <aside id="sidebar">
+                    <%- partial('_partial/widget') %>
+                </aside>
+                <main id="pjax-container">
+                    <%- body %>
+                </main>
+                <div class="sidebar-mask" id="sidebar-mask"></div>
+            </div>
+            <!-- footer -->
+            <%- partial('_partial/footer') %>
+    </div>
+
+    <script src="<%= url_for('/js/responsive.js') %>"></script>
+    <script src="<%= url_for('/js/music.js') %>"></script>
+    <!-- Search and comments are set up from here rather than from inline
+         scripts, so they come back after a pjax navigation too. -->
+    <script src="<%= url_for('/js/site.js') %>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new Pjax({
+                elements: 'a[href]:not([target]):not([data-no-pjax])',
+                selectors: [
+                    'title',
+                    '#pjax-container',
+                    '#pjax-header'
+                ]
+            })
+        })
+    </script>
+</body>
+
+</html>

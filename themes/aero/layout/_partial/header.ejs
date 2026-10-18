@@ -1,0 +1,40 @@
+<%
+// Upstream's three tabs plus this site's three extra sections. The theme ships
+// four icons for six tabs, so vista_book_2.png and vista_messenger_2.png are
+// hue-shifted copies of the book and the messenger: same Vista artwork, a
+// different colour, so no two tabs look alike.
+// `current` is prefix-based so a page under /projects/ still lights its tab.
+const items = [
+  { name: 'Home',     url: '/',          icon: 'vista_messenger.jpg' },
+  { name: 'Blog',     url: '/blog/',     icon: 'vista_book_1.jpg' },
+  { name: 'Archives', url: '/archives/', icon: 'vista_book_2.png' },
+  { name: 'Projects', url: '/projects/', icon: 'vista_pc_1.jpg' },
+  { name: 'Shaders',  url: '/shaders/',  icon: 'vista_photo_gallery.jpg' },
+  { name: 'About',    url: '/about/',    icon: 'vista_messenger_2.png' }
+];
+const here = '/' + (page.path || '').replace(/index\.html$/, '');
+function current(url) {
+  return url === '/' ? here === '/' : here.indexOf(url) === 0;
+}
+%>
+<div class="header" id="pjax-header">
+    <header class="card">
+        <p class="blog-title">
+            <%= config.subtitle %>
+        </p>
+    </header>
+    <nav class="button-bar">
+        <ul class="nav-links">
+            <% items.forEach(function (item, i) { %>
+            <li>
+                <a href="<%= url_for(item.url) %>" class="button <%= i === 0 ? 'link-home' : '' %> <%= current(item.url) ? 'active' : '' %>">
+                    <span class="nav-text">
+                        <img src="<%= url_for('/image/icon/' + item.icon) %>" alt="" class="icon">
+                        <span><%= item.name %></span>
+                    </span>
+                </a>
+            </li>
+            <% }); %>
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,77 @@
+menu:
+  about: /about
+favicon:
+  enable: true
+  icon: /image/icon/vista_messenger.jpg
+profile:
+  enable: true
+  author: Bora Yalçın
+  avatar: https://avatars.githubusercontent.com/BoraYalcinn
+  avatar_link: https://github.com/BoraYalcinn
+  # The theme ships icon images for two networks only, so these are drawn from
+  # the inline SVG table in _partial/social.ejs and sized to match.
+  social:
+    - name: GitHub
+      link: https://github.com/BoraYalcinn
+      icon: github
+    - name: LinkedIn
+      link: https://www.linkedin.com/in/borayalcinn/
+      icon: linkedin
+    - name: YouTube
+      link: https://www.youtube.com/@BoraY5734
+      icon: youtube
+    - name: Behance
+      link: https://www.behance.net/borayalcin1
+      icon: behance
+    - name: Steam
+      link: https://steamcommunity.com/profiles/76561198385728537/
+      icon: steam
+
+# The sidebar player. The title bar reads "<title> - <artist>", `cover` fills
+# the square on the left, and `url` is what the <audio> element loads, so it
+# has to be a file the browser can fetch and decode directly: mp3, m4a, ogg or
+# wav. A Spotify or YouTube link will not play.
+#
+# Files dropped in source/images/music/ are served from /images/music/... .
+# While this list is empty the player stays inert; with one or more tracks the
+# skip buttons move through it and the next one starts when the current ends.
+#
+music:
+  enable: true
+  autoplay: false
+  songs:
+    - title: "Whirling-In-Rags, 8 AM"
+      artist: Sea Power
+      cover: /images/music/disco-elysium-ost.jpg
+      url: /images/music/whirling-in-rags-8-am.mp3
+    - title: Whirling-In-Rags 12 PM
+      artist: Sea Power
+      cover: /images/music/disco-elysium-ost.jpg
+      url: /images/music/whirling-in-rags-12-pm.mp3
+    - title: "Whirling-In-Rags, 8 PM"
+      artist: Sea Power
+      cover: /images/music/disco-elysium-ost.jpg
+      url: /images/music/whirling-in-rags-8-pm.mp3
+
+# Math is rendered at build time by KaTeX in the markdown pipeline, so the
+# theme's own MathJax loader stays off.
+math:
+  enable: false
+  engine: katex
+
+# GitHub Discussions, matched to a page by pathname. Both ids are GitHub's own
+# public node ids, carried over from the Hugo site so existing threads keep
+# resolving to the same pages.
+comments:
+  enable: true
+  repo: BoraYalcinn/BoraYalcinn.github.io
+  repoId: R_kgDOTq2BCA
+  category: Comments
+  categoryId: DIC_kwDOTq2BCM4DFuDa
+  mapping: pathname
+  theme: light
+
+# The /projects/ list is built from the GitHub API at build time by
+# scripts/repos.js.
+projects:
+  user: BoraYalcinn

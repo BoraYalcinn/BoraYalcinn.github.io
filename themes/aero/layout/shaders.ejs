@@ -1,0 +1,27 @@
+<%
+const shaders = site.pages.filter(p => p.layout === 'shader').sort('date', -1).toArray();
+%>
+<div class="card post-full">
+    <span class="post-title article-title"><%= page.title %></span>
+    <% if (page.description) { %><p class="post-excerpt post-lede"><%= page.description %></p><% } %>
+    <div class="post-content"><%- page.content %></div>
+</div>
+
+<% shaders.forEach(function (s) { %>
+<article class="card post-item">
+    <div class="post-info">
+        <span class="post-title"><a class="plain-link" href="<%= url_for(s.path) %>"><%= s.title %></a></span>
+        <div class="post-meta">
+            <%= date(s.date, 'D MMMM YYYY') %>
+            <% if (s.tags && s.tags.length) { %>
+                &middot; <%- tag_links(s.tags) %>
+            <% } %>
+        </div>
+        <% if (s.shaderId) { %>
+        <div class="shader-preview"><%- shadertoy({ id: s.shaderId, title: s.title, video: s.shaderVideo, cover: s.cover, embed: false }) %></div>
+        <% } %>
+        <% if (s.description) { %><div class="post-excerpt"><%= s.description %></div><% } %>
+        <a href="<%= url_for(s.path) %>" class="button rm-link"><span class="read-more">Read More...</span></a>
+    </div>
+</article>
+<% }); %>

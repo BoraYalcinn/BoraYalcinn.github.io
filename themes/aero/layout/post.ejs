@@ -1,0 +1,18 @@
+<div class="card post-full">
+    <span class="post-title article-title">
+        <%= page.title %>
+    </span>
+
+    <div class="post-meta">
+        <%= date(page.date, 'YYYY-MM-DD' ) %>
+        <% if (page.tags && page.tags.length) { %>
+            | <%- tag_links(page.tags) %>
+        <% } %>
+    </div>
+
+    <div class="post-content">
+        <%- page.content %>
+    </div>
+</div>
+
+<%- partial('_partial/comments') %>
