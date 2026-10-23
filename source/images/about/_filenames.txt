@@ -1,0 +1,6 @@
+Images still missing from the shelves on /about/.
+
+Drop the file in with the name shown and the tile fills in on the next build.
+The extension is only a hint: .webp, .png or .avif under the same name works too.
+
+All present.

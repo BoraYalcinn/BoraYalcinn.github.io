@@ -1,0 +1,285 @@
+# The rows on /about/ under the written part: three scrollable shelves of
+# favourites, then the sports and hobbies cards.
+#
+# Each item needs a `title`; everything else is optional.
+#
+# `image` is resolved against what is actually in source/ at build time, and the
+# extension in it is only a hint: a file saved as .webp, .png or .avif under the
+# same name is found just the same. An item whose file is missing renders as a
+# name-only tile rather than a broken image, so a row can be filled in over
+# time.
+#
+# `url` is optional and turns a tile into a link.
+#
+# `aspect` is the shape every tile in that row is cropped to, so a row stays
+# even however the source images are sized: 2 / 3 for film and series posters,
+# 3 / 4 for game box art.
+
+favourites:
+  - key: games
+    title: Favourite games
+    aspect: 3 / 4
+    items:
+      - title: Disco Elysium
+        note: ZA/UM, 2019
+        image: /images/about/games/DiscoEl.jpg
+      - title: Baldur's Gate 3
+        note: Larian, 2023
+        image: /images/about/games/bg3.png
+      - title: Grand Theft Auto IV
+        note: Rockstar, 2008
+        image: /images/about/games/gta4.png
+      - title: Persona 4
+        note: Atlus, 2008
+        image: /images/about/games/persona4.png
+      - title: Cyberpunk 2077
+        note: CD Projekt Red, 2020
+        image: /images/about/games/cyberp277.png
+      - title: God of War III
+        note: Santa Monica Studio, 2010
+        image: /images/about/games/gow3.png
+      - title: SimCity 4
+        note: Maxis, 2003
+        image: /images/about/games/sc4.png
+      - title: The Last of Us Part I
+        note: Naughty Dog, 2022
+        image: /images/about/games/tlou1.jpg
+      - title: Fallout 3
+        note: Bethesda, 2008
+        image: /images/about/games/fallou3.png
+      - title: Killzone 2
+        note: Guerrilla Games, 2009
+        image: /images/about/games/killzon2.jpg
+      - title: "Call of Duty: Modern Warfare 2"
+        note: Infinity Ward, 2009
+        image: /images/about/games/codmw2.jpg
+      - title: Assassin's Creed II
+        note: Ubisoft, 2009
+        image: /images/about/games/AC2.png
+      - title: "Warhammer 40,000: Rogue Trader"
+        note: Owlcat Games, 2023
+        image: /images/about/games/wargammerRogueTRader.jpg
+      - title: Pillars of Eternity
+        note: Obsidian, 2015
+        image: /images/about/games/pillarofeternity.jpg
+      - title: Zero Parades
+        note: Longdue, upcoming
+        image: /images/about/games/zeroparades.png
+      - title: Hades
+        note: Supergiant, 2020
+        image: /images/about/games/hades.png
+      - title: BioShock
+        note: 2K Boston, 2007
+        image: /images/about/games/bioshock.png
+      - title: Psychonauts
+        note: Double Fine, 2005
+        image: /images/about/games/psychonauts.png
+      - title: "Hearts of Iron IV"
+        note: Paradox, 2016
+        image: /images/about/games/hoi4.png
+      - title: Overwatch
+        note: Blizzard, 2016
+        image: /images/about/games/overwatch.jpg
+      - title: "Batman: Arkham Origins"
+        note: WB Games Montreal, 2013
+        image: /images/about/games/batman-arkham-origins.jpg
+      - title: Deadpool
+        note: High Moon Studios, 2013
+        image: /images/about/games/deadpool.png
+      - title: Super Mario Odyssey
+        note: Nintendo, 2017
+        image: /images/about/games/marioddysey.jpg
+      - title: Super Mario Galaxy
+        note: Nintendo, 2007
+        image: /images/about/games/mariogalaxy.png
+      - title: "The Legend of Zelda: The Wind Waker HD"
+        note: Nintendo, 2013
+        image: /images/about/games/zeldawindwakerHD.png
+      - title: "Five Nights at Freddy's: Security Breach"
+        note: Steel Wool Studios, 2021
+        image: /images/about/games/fnafSecurityBreach.png
+
+  - key: movies
+    title: Favourite movies
+    aspect: 2 / 3
+    items:
+      - title: Winter Sleep
+        note: Nuri Bilge Ceylan, 2014
+        image: /images/about/movies/winter-sleep.jpg
+      - title: The Sacrifice
+        note: Andrei Tarkovsky, 1986
+        image: /images/about/movies/the-sacrifice.jpg
+      - title: Distant
+        note: Nuri Bilge Ceylan, 2002
+        image: /images/about/movies/distant.jpg
+      - title: Camera Buff
+        note: Krzysztof Kieslowski, 1979
+        image: /images/about/movies/camera-buff.jpg
+      - title: Stalker
+        note: Andrei Tarkovsky, 1979
+        image: /images/about/movies/stalker.jpg
+      - title: Come and See
+        note: Elem Klimov, 1985
+        image: /images/about/movies/come-and-see.jpg
+      - title: A Separation
+        note: Asghar Farhadi, 2011
+        image: /images/about/movies/a-separation.jpg
+      - title: Nostalghia
+        note: Andrei Tarkovsky, 1983
+        image: /images/about/movies/nostalghia.jpg
+      - title: Once Upon a Time in Anatolia
+        note: Nuri Bilge Ceylan, 2011
+        image: /images/about/movies/once-upon-a-time-in-anatolia.jpg
+      - title: Roma
+        note: Alfonso Cuaron, 2018
+        image: /images/about/movies/roma.jpg
+      - title: A Short Film About Killing
+        note: Krzysztof Kieslowski, 1988
+        image: /images/about/movies/a-short-film-about-killing.jpg
+      - title: Blind Chance
+        note: Krzysztof Kieslowski, 1987
+        image: /images/about/movies/blind-chance.jpg
+      - title: Ivan's Childhood
+        note: Andrei Tarkovsky, 1962
+        image: /images/about/movies/ivanschildhood.jpg
+      - title: The Return
+        note: Andrey Zvyagintsev, 2003
+        image: /images/about/movies/the-return.jpg
+      - title: Uncle Boonmee Who Can Recall His Past Lives
+        note: Apichatpong Weerasethakul, 2010
+        image: /images/about/movies/uncle-boonmee.jpg
+      - title: Hit the Road
+        note: Panah Panahi, 2021
+        image: /images/about/movies/hit-the-road.jpg
+      - title: Memoria
+        note: Apichatpong Weerasethakul, 2021
+        image: /images/about/movies/memoria.jpg
+      - title: City of God
+        note: Fernando Meirelles, 2002
+        image: /images/about/movies/city-of-god.jpg
+      - title: The Grand Budapest Hotel
+        note: Wes Anderson, 2014
+        image: /images/about/movies/the-grand-budapest-hotel.jpg
+      - title: At Eternity's Gate
+        note: Julian Schnabel, 2018
+        image: /images/about/movies/at-eternitys-gate.jpg
+      - title: Her
+        note: Spike Jonze, 2013
+        image: /images/about/movies/her.jpg
+      - title: Cold War
+        note: Pawel Pawlikowski, 2018
+        image: /images/about/movies/cold-war.jpg
+      - title: The Wind Will Carry Us
+        note: Abbas Kiarostami, 1999
+        image: /images/about/movies/the-wind-will-carry-us.jpg
+      - title: Fate
+        note: Zeki Demirkubuz, 2001
+        image: /images/about/movies/fate.jpg
+      - title: Brother's Keeper
+        note: Ferit Karahan, 2021
+        image: /images/about/movies/brothers-keeper.jpg
+      - title: Metropolis
+        note: Fritz Lang, 1927
+        image: /images/about/movies/metropolis.jpg
+      - title: The Skin I Live In
+        note: Pedro Almodovar, 2011
+        image: /images/about/movies/the-skin-i-live-in.jpg
+      - title: Spaceman
+        note: Johan Renck, 2024
+        image: /images/about/movies/spaceman.jpg
+      - title: The Revenant
+        note: Alejandro Gonzalez Inarritu, 2015
+        image: /images/about/movies/the-revenant.jpg
+      - title: There Is No Evil
+        note: Mohammad Rasoulof, 2020
+        image: /images/about/movies/there-is-no-evil.jpg
+
+  - key: shows
+    title: Favourite shows
+    aspect: 2 / 3
+    items:
+      - title: South Park
+        note: 1997 onwards
+        image: /images/about/shows/southpark.jpg
+      - title: The Office
+        note: 2005 to 2013
+        image: /images/about/shows/office.jpg
+      - title: The Big Bang Theory
+        note: 2007 to 2019
+        image: /images/about/shows/bigbang.jpg
+      - title: Breaking Bad
+        note: 2008 to 2013
+        image: /images/about/shows/breakingbad.jpg
+      - title: Better Call Saul
+        note: 2015 to 2022
+        image: /images/about/shows/bettercallsaul.jpg
+      - title: The Mandalorian
+        note: 2019 onwards
+        image: /images/about/shows/mandolorian.jpg
+      - title: The Book of Boba Fett
+        note: 2021
+        image: /images/about/shows/bobafett.jpg
+      - title: Chernobyl
+        note: 2019
+        image: /images/about/shows/cherno.jpg
+      - title: Rick and Morty
+        note: 2013 onwards
+        image: /images/about/shows/rick-and-morty.jpg
+      - title: Sahsiyet
+        note: Haluk Bilginer, 2018
+        image: /images/about/shows/sahsiyet.jpg
+      - title: Mr. Robot
+        note: 2015 to 2019
+        image: /images/about/shows/mrrobot.jpg
+      - title: Futurama
+        note: 1999 onwards
+        image: /images/about/shows/futurama.jpg
+      - title: Fleabag
+        note: 2016 to 2019
+        image: /images/about/shows/fleabag.jpg
+      - title: Arcane
+        note: 2021 to 2024
+        image: /images/about/shows/arcane.jpg
+      - title: "Cyberpunk: Edgerunners"
+        note: 2022
+        image: /images/about/shows/edgerunner.jpg
+      - title: Gibi
+        note: 2019 onwards
+        image: /images/about/shows/gibi.jpg
+      - title: The IT Crowd
+        note: 2006 to 2013
+        image: /images/about/shows/itcrows.jpg
+      - title: The Boys
+        note: 2019 onwards
+        image: /images/about/shows/theboys.jpg
+      - title: Silicon Valley
+        note: 2014 to 2019
+        image: /images/about/shows/siliconwalley.jpg
+      - title: Superstore
+        note: 2015 to 2021
+        image: /images/about/shows/superstore.jpg
+      - title: "Star Wars: The Clone Wars"
+        note: 2008 to 2020
+        image: /images/about/shows/clonewats.jpg
+
+hobbies:
+  title: Sports and hobbies
+  items:
+    - name: Bouldering and climbing
+      note: Oddly well suited to gamers and engineers, since every problem is read before it is climbed and the answer is a sequence rather than brute strength. It began on my Erasmus in France, where I met good people and took lessons at Block Session in Belfort, and I have not stopped since.
+      image: /images/about/hobbies/bouldering.jpg
+    - name: Table tennis
+      note: Played seriously through middle school, on the school team and in tournaments across the district, where our best run finished third against schools far larger than ours. Still the sport I would pick over any other to kill an afternoon.
+      image: /images/about/hobbies/table-tennis.jpg
+    - name: Football
+      note: The one fixture that has survived everything since high school. Same group of friends, same five a side pitch, most weekends, and I play on the left wing.
+      image: /images/about/hobbies/football.jpg
+    - name: Photography
+      note: "The same subject as rendering, approached from the other side: depth of field, exposure, how light falls on a surface. Mostly wildlife, birds and landscapes, which means the subject decides when the photograph happens and the only job left is to be ready for it."
+      image: /images/about/hobbies/photography.jpg
+    - name: Guitar
+      note: A year and a bit of lessons now, and still at the stage where progress is measured in chords that stop buzzing rather than in songs. The most humbling thing on this list.
+      image: /images/about/hobbies/guitar.jpg
+    - name: Retro collecting
+      note: Old consoles, the games that shipped on them, and whatever else came in the box. Half the appeal is that this shelf is the history of real time rendering, since every one of these machines answered the same question under a different constraint, and the answers are still there to be held and switched on.
+      image: /images/about/hobbies/retro-collecting.jpg

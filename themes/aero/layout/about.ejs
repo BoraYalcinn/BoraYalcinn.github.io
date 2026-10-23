@@ -1,3 +1,11 @@
+<%
+// The written part, then the favourites shelves and the hobby cards, both read
+// from source/_data/about.yml. Each section is skipped when its list is empty,
+// so the page is never padded with an empty shelf.
+const data = site.data.about || {};
+const shelves = (data.favourites || []).filter(s => (s.items || []).length);
+const hobbies = data.hobbies && (data.hobbies.items || []).length ? data.hobbies : null;
+%>
 <div class="card post-full">
     <span class="post-title article-title">
         <%= page.title %>
@@ -7,3 +15,45 @@
         <%- page.content %>
     </div>
 </div>
+
+<% shelves.forEach(function (shelf) { %>
+<h2 class="post-title section-heading"><%= shelf.title %></h2>
+<div class="card shelf-card">
+    <%# The row scrolls sideways: a touch swipe and a trackpad do it natively,
+        and tabbing to the row lets the arrow keys do it too. %>
+    <div class="shelf" tabindex="0" role="group" aria-label="<%= shelf.title %>, scroll sideways for more">
+        <% shelf.items.forEach(function (item) { %>
+        <% const art = asset_url(item.image); %>
+        <% if (item.url) { %><a class="shelf-item" href="<%= item.url %>" rel="noopener" target="_blank"><% } else { %><span class="shelf-item"><% } %>
+            <span class="shelf-art" style="aspect-ratio: <%= shelf.aspect || '2 / 3' %>">
+                <% if (art) { %>
+                <img src="<%= art %>" alt="<%= item.title %>" loading="lazy" decoding="async">
+                <% } else { %>
+                <span class="shelf-art-blank" aria-hidden="true"><%= item.title %></span>
+                <% } %>
+            </span>
+            <span class="shelf-title"><%= item.title %></span>
+            <% if (item.note) { %><span class="shelf-note"><%= item.note %></span><% } %>
+        <% if (item.url) { %></a><% } else { %></span><% } %>
+        <% }); %>
+    </div>
+</div>
+<% }); %>
+
+<% if (hobbies) { %>
+<h2 class="post-title section-heading"><%= hobbies.title %></h2>
+<div class="card shelf-card">
+    <div class="hobby-grid">
+        <% hobbies.items.forEach(function (h) { %>
+        <% const photo = asset_url(h.image); %>
+        <div class="hobby">
+            <% if (photo) { %>
+            <span class="hobby-art"><img src="<%= photo %>" alt="<%= h.name %>" loading="lazy" decoding="async"></span>
+            <% } %>
+            <span class="hobby-name"><%= h.name %></span>
+            <% if (h.note) { %><span class="hobby-note"><%= h.note %></span><% } %>
+        </div>
+        <% }); %>
+    </div>
+</div>
+<% } %>

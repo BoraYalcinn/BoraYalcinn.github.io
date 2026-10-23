@@ -1,5 +1,39 @@
 /* Template helpers ported from the Hugo site's partials. */
 
+const fs = require('fs');
+const nodePath = require('path');
+
+// Resolves a site-absolute path like /images/about/games/x.jpg against what is
+// actually in source/, and returns '' when nothing is there. Two reasons:
+//
+//   - The shelves on /about/ name their artwork before the files are uploaded,
+//     so a tile whose image is missing renders as a name-only placeholder
+//     rather than a broken image.
+//   - The extension in the data file is a guess. Whatever the file is saved as,
+//     .webp from a review site or .png from a wiki, the sibling extensions are
+//     tried too, so dropping the file in is the whole job.
+const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif'];
+
+hexo.extend.helper.register('asset_url', function (p) {
+  if (!p || typeof p !== 'string' || !p.startsWith('/')) return '';
+
+  const variants = [p, ...IMAGE_EXTENSIONS.map(e => p.replace(/\.[^./]+$/, e))];
+  const sourceRoot = nodePath.resolve(hexo.source_dir);
+
+  for (const candidate of new Set(variants)) {
+    const rel = decodeURIComponent(candidate.replace(/^\/+/, '')).split('?')[0];
+    const full = nodePath.resolve(sourceRoot, rel);
+    // Never let a path climb out of source/.
+    if (!full.startsWith(sourceRoot + nodePath.sep)) continue;
+    try {
+      if (fs.statSync(full).isFile()) return this.url_for(candidate);
+    } catch (e) {
+      // Next candidate.
+    }
+  }
+  return '';
+});
+
 // Hexo attaches tag models to posts only, so a page's `tags` is still the plain
 // front-matter array while a post's is a Query. Both shapes reach the layouts.
 const tagNames = tags => !tags ? []
