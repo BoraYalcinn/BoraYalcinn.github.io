@@ -44,11 +44,9 @@ music:
       artist: Sea Power
       cover: /images/music/disco-elysium-ost.jpg
       url: /images/music/whirling-in-rags-8-am.mp3
-      # No cover art for this one yet; the player leaves the square empty rather
-      # than borrowing the Disco Elysium sleeve, which is a different record.
     - title: Radio
       artist: Dispatch
-      cover: ''
+      cover: /images/music/dispatch-radio.jpg
       url: /images/music/dispatch-radio.mp3
     - title: Whirling-In-Rags 12 PM
       artist: Sea Power
