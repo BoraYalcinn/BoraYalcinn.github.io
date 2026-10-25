@@ -13,7 +13,7 @@ tags:
   - profiling
   - gpu
 cover: /images/blog/render-v13.jpg
-featured: true
+featured: false
 published: true
 ---
 Hi everyone, how have you been? I have been buried in school projects, so this
