@@ -13,7 +13,7 @@ tags:
   - sampling
   - gpu
 cover: /images/blog/render-v16.jpg
-featured: true
+featured: false
 published: true
 ---
 Hello folks, long time no see! Sorry for the gap. The last few weeks were busy:

@@ -14,7 +14,7 @@ tags:
   - gpu
 cover: /images/blog/sponza-textured.png
 featured: true
-published: false
+published: true
 ---
 <!-- SKELETON. Bullets are notes to expand into prose. Numbers are from the
      MonoCUDA-PT README and are measured; do not round them. -->
