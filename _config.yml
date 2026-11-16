@@ -8,11 +8,11 @@ subtitle: '"Before the light, there was structure."'
 # What the home page's browser title and search result say. Kept separate from
 # the subtitle: a quotation reads well on the page but tells a search engine
 # nothing about what the site is.
-tagline: computer graphics, game development, engine and math level projects
+tagline: computer graphics, computational science, game development, engine and math level projects
 description: >
   Bora Yalçın, Computer Science undergraduate working in computer graphics,
-  game development, and engine and math level projects, with open source
-  contributions on rendering topics in game engines.
+  computational science, game development, and engine and math level projects,
+  with open source contributions on rendering topics in game engines.
 keywords:
 author: Bora Yalçın
 language: en

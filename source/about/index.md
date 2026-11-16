@@ -11,12 +11,20 @@ layout: about
 I am an undergraduate Computer Science student at Yeditepe University in
 Istanbul, currently on a scholarship Erasmus+ exchange at UTBM in France.
 
-What I actually work on is computer graphics: ray and path tracing, GPU
-architecture, parallel computing, C++, and, most of all, the mathematics
-underneath all of it. Rendering is the part of engineering where the maths stops
-being abstract and turns into something you can look at, which is exactly why I
-like it. Game development is the other half of that interest, and both of them
-keep sending me back to the same place: linear algebra, geometry, probability.
+What I actually work on is computer graphics and computational science: ray and
+path tracing, GPU architecture, parallel computing, C++, and, most of all, the
+mathematics underneath all of it. Rendering is the part of engineering where the
+maths stops being abstract and turns into something you can look at, which is
+exactly why I like it. Game development is the other half of that interest, and
+both of them keep sending me back to the same place: linear algebra, geometry,
+probability.
+
+Computational science is the thread that runs through all of it. A path tracer
+is a Monte Carlo integrator that happens to produce a picture, and the problems
+it runs into are the ones any large numerical simulation runs into: variance,
+convergence, how to keep thousands of cores busy on work that refuses to stay
+uniform. The picture at the end is what makes it a renderer. Everything before
+that is the same craft.
 
 Some of that work happens in other people's code. I contribute to open source
 game engines on rendering topics, which is a different kind of exercise from
